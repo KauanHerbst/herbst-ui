@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 
 export type PM = 'npm' | 'pnpm' | 'yarn' | 'bun';
 
@@ -18,6 +18,5 @@ export function installArgs(pm: PM, deps: string[]): string[] {
 
 export function runInstall(pm: PM, deps: string[], cwd: string): void {
   if (deps.length === 0) return;
-  const bin = process.platform === 'win32' ? `${pm}.cmd` : pm;
-  execFileSync(bin, installArgs(pm, deps), { cwd, stdio: 'inherit' });
+  execSync([pm, ...installArgs(pm, deps)].join(' '), { cwd, stdio: 'inherit' });
 }
