@@ -18,5 +18,6 @@ export function installArgs(pm: PM, deps: string[]): string[] {
 
 export function runInstall(pm: PM, deps: string[], cwd: string): void {
   if (deps.length === 0) return;
-  execFileSync(pm, installArgs(pm, deps), { cwd, stdio: 'inherit', shell: true });
+  const bin = process.platform === 'win32' ? `${pm}.cmd` : pm;
+  execFileSync(bin, installArgs(pm, deps), { cwd, stdio: 'inherit' });
 }
