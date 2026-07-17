@@ -58,7 +58,7 @@ describe('runInit', () => {
     expect(existsSync(join(dir, 'herbst.json'))).toBe(true);
 
     const ts = JSON.parse(readFileSync(join(dir, 'tsconfig.json'), 'utf8'));
-    expect(ts.compilerOptions.paths['@shared/ui/*']).toEqual(['src/app/shared/ui/*']);
+    expect(ts.compilerOptions.paths['@shared/ui/*']).toEqual(['./src/app/shared/ui/*']);
 
     expect(existsSync(join(dir, 'src/app/shared/ui/utils/index.ts'))).toBe(true);
     expect(existsSync(join(dir, 'src/app/shared/ui/theme.css'))).toBe(true);

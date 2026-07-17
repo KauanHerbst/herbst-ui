@@ -20,6 +20,6 @@ export async function patchTsconfigPaths(
   };
   json.compilerOptions ??= {};
   json.compilerOptions.paths ??= {};
-  json.compilerOptions.paths[`${alias}/*`] = [`${componentsDir}/*`];
+  json.compilerOptions.paths[`${alias}/*`] = [`./${componentsDir}/*`];
   await writeFile(file, JSON.stringify(json, null, 2) + '\n');
 }

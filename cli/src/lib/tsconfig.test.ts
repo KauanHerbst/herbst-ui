@@ -24,7 +24,7 @@ describe('tsconfig', () => {
     );
     await patchTsconfigPaths(dir, '@shared/ui', 'src/app/shared/ui');
     const parsed = JSON.parse(readFileSync(join(dir, 'tsconfig.json'), 'utf8'));
-    expect(parsed.compilerOptions.paths['@shared/ui/*']).toEqual(['src/app/shared/ui/*']);
+    expect(parsed.compilerOptions.paths['@shared/ui/*']).toEqual(['./src/app/shared/ui/*']);
     expect(parsed.compilerOptions.paths['@herbst/ui']).toEqual(['x']);
   });
 });
