@@ -3,10 +3,19 @@
   "version": "0.0.1",
   "description": "CLI to add herbst UI components to your Angular project",
   "type": "module",
-  "bin": { "herbst-ui": "./dist/index.js" },
-  "files": ["dist", "README.md"],
-  "engines": { "node": ">=18" },
-  "publishConfig": { "access": "public" },
+  "bin": {
+    "herbst-ui": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
