@@ -43,7 +43,7 @@ export function analyzeComponent(
       const spec = match[2];
       if (spec.startsWith('.')) continue;
       if (spec.startsWith(ALIAS_TOKEN)) continue;
-      if (spec.startsWith('@angular')) continue;
+      if (spec.startsWith('@angular') && !spec.startsWith('@angular/cdk')) continue;
       npmDeps.add(packageName(spec));
     }
 

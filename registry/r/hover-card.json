@@ -2,6 +2,7 @@
   "name": "hover-card",
   "type": "registry:component",
   "dependencies": [
+    "@angular/cdk",
     "class-variance-authority"
   ],
   "devDependencies": [],

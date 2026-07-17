@@ -4,6 +4,7 @@
   "dependencies": [
     "@ng-icons/core",
     "@ng-icons/phosphor-icons",
+    "@angular/cdk",
     "class-variance-authority"
   ],
   "devDependencies": [],

@@ -2,6 +2,7 @@
   "name": "accordion",
   "type": "registry:component",
   "dependencies": [
+    "@angular/cdk",
     "@ng-icons/core",
     "@ng-icons/phosphor-icons",
     "class-variance-authority"

@@ -2,6 +2,7 @@
   "name": "tooltip",
   "type": "registry:component",
   "dependencies": [
+    "@angular/cdk",
     "class-variance-authority"
   ],
   "devDependencies": [],
