@@ -4,10 +4,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitOverride": true,
+    "paths": {
+      "@herbst/ui": ["./projects/herbst/src/public-api.ts"]
+    },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -26,6 +30,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/herbst/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/herbst/tsconfig.spec.json"
     }
   ]
 }

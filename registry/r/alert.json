@@ -1,0 +1,49 @@
+{
+  "name": "alert",
+  "type": "registry:component",
+  "dependencies": [
+    "@ng-icons/core",
+    "@ng-icons/phosphor-icons",
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "alert/alert.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport {\n  phosphorCheckCircle,\n  phosphorInfo,\n  phosphorWarning,\n  phosphorXCircle,\n} from '@ng-icons/phosphor-icons/regular';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  alertDescriptionVariants,\n  alertIconVariants,\n  alertTitleVariants,\n  alertVariants,\n  type HbAlertType,\n} from './alert.variants';\n\nconst DEFAULT_ICONS: Record<HbAlertType, string> = {\n  default: 'phosphorInfo',\n  success: 'phosphorCheckCircle',\n  warning: 'phosphorWarning',\n  destructive: 'phosphorXCircle',\n};\n\n@Component({\n  selector: 'hb-alert, [hb-alert]',\n  imports: [NgIcon],\n  template: `\n    @if (resolvedIcon(); as icon) {\n      <ng-icon [name]=\"icon\" [class]=\"iconClasses()\" />\n    }\n\n    <div class=\"min-w-0 flex-1\">\n      @if (hbTitle()) {\n        <div [class]=\"titleClasses()\" data-slot=\"alert-title\">{{ hbTitle() }}</div>\n      }\n      @if (hbDescription()) {\n        <div [class]=\"descriptionClasses\" data-slot=\"alert-description\">{{ hbDescription() }}</div>\n      }\n    </div>\n\n    <ng-content select=\"[hbAlertAction]\" />\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  viewProviders: [\n    provideIcons({ phosphorInfo, phosphorCheckCircle, phosphorWarning, phosphorXCircle }),\n  ],\n  host: {\n    role: 'alert',\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'alert'\",\n  },\n  exportAs: 'hbAlert',\n})\nexport class HbAlertComponent {\n  readonly hbType = input<HbAlertType>('default');\n  readonly hbTitle = input<string>('');\n  readonly hbDescription = input<string>('');\n  readonly hbIcon = input<string>('');\n  readonly class = input<ClassValue>('');\n\n  protected readonly iconClasses = computed(() =>\n    cn(alertIconVariants({ hbType: this.hbType() })),\n  );\n  protected readonly titleClasses = computed(() =>\n    cn(alertTitleVariants({ hbType: this.hbType() })),\n  );\n\n  protected readonly classes = computed(() =>\n    cn(alertVariants({ hbType: this.hbType() }), this.class()),\n  );\n  protected readonly descriptionClasses = cn(alertDescriptionVariants());\n\n  protected readonly resolvedIcon = computed(() => {\n    const icon = this.hbIcon();\n    if (icon === 'none') return null;\n    return icon || DEFAULT_ICONS[this.hbType()];\n  });\n}\n"
+    },
+    {
+      "path": "alert/alert.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const alertVariants = cva(\n  'relative flex w-full items-start gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm text-card-foreground',\n  {\n    variants: {\n      hbType: {\n        default: '',\n        success: 'border-l-2 border-l-success',\n        warning: 'border-l-2 border-l-warning',\n        destructive: 'border-l-2 border-l-destructive',\n      },\n    },\n    defaultVariants: {\n      hbType: 'default',\n    },\n  },\n);\n\nexport const alertIconVariants = cva('mt-0.5 shrink-0 self-start [&>svg]:size-4', {\n  variants: {\n    hbType: {\n      default: 'text-muted-foreground',\n      success: 'text-success',\n      warning: 'text-warning',\n      destructive: 'text-destructive',\n    },\n  },\n  defaultVariants: {\n    hbType: 'default',\n  },\n});\n\nexport const alertTitleVariants = cva('font-medium tracking-tight', {\n  variants: {\n    hbType: {\n      default: 'text-card-foreground',\n      success: 'text-success',\n      warning: 'text-warning',\n      destructive: 'text-destructive',\n    },\n  },\n  defaultVariants: {\n    hbType: 'default',\n  },\n});\n\nexport const alertDescriptionVariants = cva('mt-1 text-sm/relaxed text-muted-foreground');\n\nexport type HbAlertType = NonNullable<VariantProps<typeof alertVariants>['hbType']>;\n"
+    },
+    {
+      "path": "alert/index.ts",
+      "content": "export * from './alert.component';\nexport * from './alert.variants';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "alert-action.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAlertComponent, HbButtonComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-alert-action',\n  imports: [HbAlertComponent, HbButtonComponent],\n  template: `\n    <hb-alert\n      class=\"max-w-lg\"\n      hbType=\"warning\"\n      hbTitle=\"Photo removed\"\n      hbDescription=\"Your photo of falling leaves was moved to the trash.\"\n    >\n      <button hb-button hbType=\"outline\" hbSize=\"sm\" hbAlertAction class=\"self-center\">Undo</button>\n    </hb-alert>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAlertActionComponent {}\n"
+    },
+    {
+      "path": "alert-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAlertComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-alert-basic',\n  imports: [HbAlertComponent],\n  template: `\n    <hb-alert\n      class=\"max-w-lg\"\n      hbTitle=\"Photo saved\"\n      hbDescription=\"Your photo of falling leaves was added to the Herbst album.\"\n    />\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAlertBasicComponent {}\n"
+    },
+    {
+      "path": "alert-icon.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAlertComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-alert-icon',\n  imports: [HbAlertComponent],\n  template: `\n    <div class=\"flex w-full max-w-lg flex-col gap-3\">\n      <hb-alert\n        hbType=\"success\"\n        hbIcon=\"phosphorWarning\"\n        hbTitle=\"Overridden icon\"\n        hbDescription=\"Any registered icon name passed to hbIcon replaces the default for the type.\"\n      />\n      <hb-alert\n        hbIcon=\"none\"\n        hbTitle=\"No icon\"\n        hbDescription=\"Set hbIcon to none to drop the leading mark and align the text flush left.\"\n      />\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAlertIconComponent {}\n"
+    },
+    {
+      "path": "alert-minimal.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAlertComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-alert-minimal',\n  imports: [HbAlertComponent],\n  template: `\n    <div class=\"flex w-full max-w-lg flex-col gap-3\">\n      <hb-alert hbType=\"success\" hbTitle=\"Title only — a short confirmation with no body text.\" />\n      <hb-alert\n        hbIcon=\"none\"\n        hbDescription=\"Description only, icon removed — a quiet inline note without a heading.\"\n      />\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAlertMinimalComponent {}\n"
+    },
+    {
+      "path": "alert-types.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAlertComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-alert-types',\n  imports: [HbAlertComponent],\n  template: `\n    <div class=\"flex w-full max-w-lg flex-col gap-3\">\n      <hb-alert hbTitle=\"Default\" hbDescription=\"A quiet note about the turning season.\" />\n      <hb-alert\n        hbType=\"success\"\n        hbTitle=\"Success\"\n        hbDescription=\"Your autumn walk was saved to the journal.\"\n      />\n      <hb-alert\n        hbType=\"warning\"\n        hbTitle=\"Warning\"\n        hbDescription=\"Frost is expected tonight — cover the balcony plants.\"\n      />\n      <hb-alert\n        hbType=\"destructive\"\n        hbTitle=\"Destructive\"\n        hbDescription=\"This photo was removed from the album.\"\n      />\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAlertTypesComponent {}\n"
+    }
+  ]
+}

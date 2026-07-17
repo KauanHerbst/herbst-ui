@@ -1,0 +1,434 @@
+<div class="min-h-screen bg-background text-foreground">
+<app-docs-header menu="false" />
+
+<div class="relative">
+<section class="sticky top-0 flex h-screen overflow-hidden border-b border-border bg-background">
+  <app-hb-leaves />
+  <div class="absolute z-[1] hidden overflow-hidden md:block" [style]="heroImgBox()">
+    @for (img of heroImages; track img; let i = $index) {
+      <img [src]="img" alt="" class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000" [class.opacity-0]="heroImg() !== i" />
+    }
+    <div class="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-black/25" [style]="heroArrivedStyle()">
+      <h2 class="px-6 text-center font-display text-[clamp(36px,6vw,64px)] font-semibold italic tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)]">{{ 'landing.hero.arrived' | t }}</h2>
+    </div>
+  </div>
+  <div class="absolute inset-y-0 right-0 z-[2] hidden w-1/2 items-center md:flex">
+    <div class="mx-auto w-full max-w-[440px] px-8">
+      <div [style]="heroPanelStyle()">
+        <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Herbst UI</p>
+        <h2 class="mt-3 font-display text-[clamp(26px,2.8vw,38px)] font-semibold italic leading-[1.12] tracking-tight text-balance">{{ 'landing.hero.season' | t }}</h2>
+      </div>
+      <div [style]="heroPanelStyle(0.12)" class="mt-8 rounded-md border border-border bg-card p-5 shadow-xs">
+        <div class="flex items-center gap-4">
+          <hb-avatar hbSrc="/images/kauanherbst.jpeg" hbAlt="Kauan Herbst" hbFallback="KH" hbSize="lg" hbStatus="online" />
+          <div class="min-w-0 flex-1">
+            <p class="font-display text-base font-semibold italic">Kauan Herbst</p>
+            <p class="text-sm text-muted-foreground">Creator of Herbst UI</p>
+          </div>
+          <span hb-badge hbType="outline" class="shrink-0">🍂 Autumn</span>
+        </div>
+        <p class="mt-4 text-sm leading-[1.65] text-muted-foreground">Welcome to autumn! Grab a warm drink, pick a component, and build something beautiful.</p>
+        <div class="mt-4 flex items-center gap-2 border-t border-border pt-4">
+          <hb-hover-card>
+            <a hbHoverCardTrigger hb-button hbType="ghost" hbSize="icon" href="https://www.instagram.com/kauanherbst_/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <ng-icon name="phosphorInstagramLogo" />
+            </a>
+            <hb-hover-card-content [hbWidth]="230">
+              <p class="text-sm font-medium">&#64;kauanherbst_</p>
+              <p class="text-sm text-muted-foreground">Autumn snapshots and work in progress on Instagram.</p>
+            </hb-hover-card-content>
+          </hb-hover-card>
+          <hb-hover-card>
+            <a hbHoverCardTrigger hb-button hbType="ghost" hbSize="icon" href="https://github.com/KauanHerbst" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <ng-icon name="phosphorGithubLogo" />
+            </a>
+            <hb-hover-card-content [hbWidth]="230">
+              <p class="text-sm font-medium">&#64;KauanHerbst</p>
+              <p class="text-sm text-muted-foreground">Herbst UI lives here — issues and PRs welcome.</p>
+            </hb-hover-card-content>
+          </hb-hover-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="relative z-[2] mx-auto flex w-full max-w-[1120px] flex-col justify-center px-6 py-16" [style]="heroCopyStyle()">
+    <div class="hb-blur-fade mt-auto">
+      <span hb-badge hbType="outline" class="gap-1.5 font-mono text-[11px]">{{ libName }} <span class="text-primary">v{{ libVersion }}</span></span>
+    </div>
+    <h1 class="hb-blur-fade mt-5 max-w-[17ch] font-display text-[clamp(44px,7vw,72px)] font-semibold italic leading-[1.02] tracking-tight text-balance" style="animation-delay:0.12s">{{ 'landing.hero.title' | t }}</h1>
+    <p class="hb-blur-fade mt-6 max-w-[54ch] text-[15px] leading-[1.65] text-muted-foreground text-pretty" style="animation-delay:0.24s">{{ 'landing.hero.desc' | t }}</p>
+    <div class="hb-blur-fade mt-9 flex flex-wrap items-center gap-3" style="animation-delay:0.36s">
+      <a hb-button href="#install" (click)="gust()" class="h-10 px-6">{{ 'landing.hero.start' | t }}</a>
+      <a hb-button hbType="outline" [routerLink]="loc.docsLink()" class="h-10 px-6">{{ 'landing.hero.view' | t }}</a>
+    </div>
+    <div class="hb-hero-hint mt-14 mb-auto flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+      <span class="inline-block h-px w-8 bg-border"></span>
+      <span>{{ 'landing.hero.scroll' | t }}</span>
+    </div>
+  </div>
+</section>
+
+<div class="hidden h-[200vh] md:block" aria-hidden="true"></div>
+
+<section id="install" class="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border bg-background">
+  <div class="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-12 px-6 py-[88px] md:grid-cols-[minmax(280px,5fr)_minmax(320px,7fr)]">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{{ 'landing.install.eyebrow' | t }}</p>
+      <h2 class="mt-3 font-display text-[28px] font-semibold leading-[1.15] tracking-tight">{{ 'landing.install.title' | t }}</h2>
+      <p class="mt-3 max-w-[44ch] text-sm leading-[1.65] text-muted-foreground text-pretty">{{ 'landing.install.desc' | t }}</p>
+      <div class="mt-6 flex gap-3">
+        <a hb-button hbType="outline" [routerLink]="loc.docsLink('introduction')" class="h-9 px-4">{{ 'landing.install.read' | t }}</a>
+      </div>
+    </div>
+    <div class="overflow-hidden rounded-md border border-border bg-card shadow-xs">
+      <div class="flex items-center justify-between border-b border-border px-4 py-2.5">
+        <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">terminal</span>
+        <button type="button" (click)="copyCli()" aria-live="polite" class="rounded px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">{{ (copied() ? 'landing.install.copied' : 'landing.install.copy') | t }}</button>
+      </div>
+      <div class="px-5 py-5 font-mono text-[13px] leading-loose">
+        <div><span class="text-muted-foreground">$</span> npm i &#64;herbst/ui</div>
+        <div><span class="text-muted-foreground">$</span> npx herbst-ui add button calendar command</div>
+        <div class="text-success">{{ 'landing.install.mounted' | t }}</div>
+        <div class="text-muted-foreground">{{ 'landing.install.catalogued' | t }}<span class="hb-blink -mb-0.5 ml-1.5 inline-block h-3.5 w-[7px] bg-primary align-[-2px]"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="specimens" class="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border bg-background">
+  <div class="mx-auto w-full max-w-[1120px] px-6 py-10">
+    <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{{ 'landing.spec.eyebrow' | t }}</p>
+    <h2 class="mt-3 font-display text-[28px] font-semibold leading-[1.15] tracking-tight">{{ 'landing.spec.title' | t }}</h2>
+    <p class="mt-3 max-w-[54ch] text-sm leading-[1.65] text-muted-foreground">{{ 'landing.spec.desc' | t }}</p>
+
+    <hb-carousel class="mt-6 block" hbLoop [hbAutoplay]="!reduceMotion()" [hbDelay]="2500" [hbSpacing]="16">
+      <hb-carousel-content>
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·011</span> — Button</div>
+            <div class="flex flex-1 flex-wrap content-center items-center gap-2 p-4">
+              <button hb-button hbSize="sm">Default</button>
+              <button hb-button hbType="secondary" hbSize="sm">Secondary</button>
+              <button hb-button hbType="outline" hbSize="sm">Outline</button>
+              <button hb-button hbType="ghost" hbSize="sm">Ghost</button>
+              <button hb-button hbType="destructive" hbSize="sm">Destructive</button>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·032</span> — Input</div>
+            <div class="flex flex-1 flex-col justify-center gap-3 p-4">
+              <input hb-input placeholder="City or region" aria-label="City or region" />
+              <input hb-input hbSize="sm" class="font-mono" placeholder="Freiburg, DE" aria-label="City code" />
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[320px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·061</span> — Switch</div>
+            <div class="flex flex-1 flex-col justify-center gap-4 p-4 text-sm">
+              <hb-switch [hbChecked]="true">Daily forecast at sunrise</hb-switch>
+              <hb-switch>Notify on first frost</hb-switch>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·063</span> — Tabs</div>
+            <div class="flex-1 p-4">
+              <hb-tabs [(hbValue)]="specTab">
+                <hb-tab-list>
+                  <hb-tab hbValue="overview">Overview</hb-tab>
+                  <hb-tab hbValue="usage">Usage</hb-tab>
+                  <hb-tab hbValue="api">API</hb-tab>
+                </hb-tab-list>
+                <hb-tab-panel hbValue="overview">
+                  <p class="font-mono text-xs leading-relaxed text-muted-foreground">import {{ '{' }} HbTabsImports {{ '}' }} from '&#64;herbst/ui'</p>
+                </hb-tab-panel>
+                <hb-tab-panel hbValue="usage">
+                  <p class="font-mono text-xs leading-relaxed text-muted-foreground">hbValue · hbSize · hbFluid</p>
+                </hb-tab-panel>
+                <hb-tab-panel hbValue="api">
+                  <p class="font-mono text-xs leading-relaxed text-muted-foreground">Inputs: hbValue · Outputs: hbChange</p>
+                </hb-tab-panel>
+              </hb-tabs>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·052</span> — Segmented</div>
+            <div class="flex flex-1 flex-col items-start justify-center gap-3 p-4">
+              <hb-segmented [(hbValue)]="specView">
+                <hb-segmented-item value="list" label="List"></hb-segmented-item>
+                <hb-segmented-item value="grid" label="Grid"></hb-segmented-item>
+                <hb-segmented-item value="map" label="Map"></hb-segmented-item>
+              </hb-segmented>
+              <p class="font-mono text-[11px] text-muted-foreground">view · <span class="text-primary">{{ specView() }}</span></p>
+            </div>
+          </div>
+        </hb-carousel-item>
+      </hb-carousel-content>
+    </hb-carousel>
+
+    <hb-carousel class="mt-3 block" hbLoop [hbAutoplay]="!reduceMotion()" [hbDelay]="3400" [hbSpacing]="16">
+      <hb-carousel-content>
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·017</span> — Checkbox</div>
+            <div class="flex flex-1 flex-col justify-center gap-3 p-4 text-sm">
+              <hb-checkbox [hbChecked]="true">Email me when the leaves turn</hb-checkbox>
+              <hb-checkbox>Include weekend forecasts</hb-checkbox>
+              <hb-checkbox [hbIndeterminate]="true">Berlin · München · Freiburg</hb-checkbox>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·006</span> — Avatar</div>
+            <div class="flex flex-1 flex-col justify-center gap-4 p-4">
+              <div class="flex items-center gap-3">
+                <hb-avatar hbFallback="KH" hbStatus="online" />
+                <hb-avatar hbFallback="LH" hbStatus="away" />
+                <hb-avatar hbFallback="MV" hbStatus="busy" />
+              </div>
+              <hb-avatar-group [hbMax]="3">
+                <hb-avatar hbFallback="KH" />
+                <hb-avatar hbFallback="NA" />
+                <hb-avatar hbFallback="BS" />
+                <hb-avatar hbFallback="LC" />
+                <hb-avatar hbFallback="AM" />
+              </hb-avatar-group>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·007</span> — Badge</div>
+            <div class="flex flex-1 flex-wrap content-center items-center gap-2 p-4">
+              <span hb-badge>Default</span>
+              <span hb-badge hbType="secondary">Secondary</span>
+              <span hb-badge hbType="outline">Outline</span>
+              <span hb-badge hbType="success">Clear</span>
+              <span hb-badge hbType="warning">Overcast</span>
+              <span hb-badge hbType="destructive">Storm</span>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·045</span> — Pagination</div>
+            <div class="flex flex-1 flex-col items-start justify-center gap-2 p-4">
+              <hb-pagination [(hbPage)]="specPage" [hbTotal]="69" [hbPageSize]="10" />
+              <p class="font-mono text-[11px] text-muted-foreground">page · <span class="text-primary">{{ specPage() }}</span> / 7</p>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·036</span> — Kbd</div>
+            <div class="flex flex-1 flex-col justify-center gap-3 p-4 text-sm text-muted-foreground">
+              <div class="flex items-center justify-between gap-2">Open the search <hb-kbd-group><hb-kbd>⌘</hb-kbd><hb-kbd>K</hb-kbd></hb-kbd-group></div>
+              <div class="flex items-center justify-between gap-2">Toggle dark mode <hb-kbd-group><hb-kbd>⌘</hb-kbd><hb-kbd>D</hb-kbd></hb-kbd-group></div>
+            </div>
+          </div>
+        </hb-carousel-item>
+      </hb-carousel-content>
+    </hb-carousel>
+
+    <hb-carousel class="mt-3 block" hbLoop [hbAutoplay]="!reduceMotion()" [hbDelay]="2900" [hbSpacing]="16">
+      <hb-carousel-content>
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·002</span> — Alert</div>
+            <div class="flex flex-1 items-center p-4">
+              <hb-alert hbTitle="Season changed" hbDescription="Autumn arrived in Bavaria overnight." />
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·010</span> — Breadcrumb</div>
+            <div class="flex flex-1 items-center p-4">
+              <hb-breadcrumb>
+                <hb-breadcrumb-item>Herbst UI</hb-breadcrumb-item>
+                <hb-breadcrumb-item>Seasons</hb-breadcrumb-item>
+                <hb-breadcrumb-item hbCurrent>October</hb-breadcrumb-item>
+              </hb-breadcrumb>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[320px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·048</span> — Progress</div>
+            <div class="flex flex-1 flex-col justify-center gap-4 p-4">
+              <hb-progress [hbValue]="34" hbLabel="Leaves turning" hbShowValue />
+              <hb-progress [hbValue]="72" hbLabel="Daylight left" hbShowValue hbType="success" />
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·050</span> — Radio</div>
+            <div class="flex flex-1 flex-col justify-center p-4 text-sm">
+              <hb-radio-group [(hbValue)]="specPlan" hbName="spec-plan">
+                <hb-radio [hbValue]="'walk'">Morning walk</hb-radio>
+                <hb-radio [hbValue]="'fire'">Stay by the fire</hb-radio>
+              </hb-radio-group>
+            </div>
+          </div>
+        </hb-carousel-item>
+
+        <hb-carousel-item class="basis-auto">
+          <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·056</span> — Skeleton</div>
+            <div class="flex flex-1 flex-col justify-center gap-3 p-4">
+              <div class="flex items-center gap-3">
+                <hb-skeleton hbShape="circle" hbSize="lg" />
+                <div class="flex flex-1 flex-col gap-2">
+                  <hb-skeleton hbShape="text" hbSize="lg" hbWidth="70%" />
+                  <hb-skeleton hbShape="text" />
+                </div>
+              </div>
+              <hb-skeleton hbHeight="4rem" hbRounded="lg" />
+            </div>
+          </div>
+        </hb-carousel-item>
+      </hb-carousel-content>
+    </hb-carousel>
+
+    <div class="mt-6 flex justify-center">
+      <a hb-button hbType="outline" [routerLink]="loc.docsLink('components')" class="h-10 gap-2 px-6">{{ 'landing.spec.browse' | t }} <span class="font-mono text-primary">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="theming" class="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border bg-background">
+  <div class="mx-auto w-full max-w-[1120px] px-6 py-10">
+    <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{{ 'landing.theme.eyebrow' | t }}</p>
+    <h2 class="mt-3 font-display text-[28px] font-semibold leading-[1.15] tracking-tight">{{ 'landing.theme.title' | t }}</h2>
+    <p class="mt-3 max-w-[54ch] text-sm leading-[1.65] text-muted-foreground">{{ 'landing.theme.desc' | t }}</p>
+
+    <div class="mt-10 grid grid-cols-1 items-start gap-12 md:grid-cols-2">
+      <div class="grid grid-cols-3 gap-4 sm:grid-cols-4">
+        @for (s of themeSwatches; track s.name) {
+          <div>
+            <div class="h-14 rounded-md border border-border shadow-xs {{ s.cls }}"></div>
+            <p class="mt-1.5 font-mono text-[11px] text-muted-foreground">--{{ s.name }}</p>
+          </div>
+        }
+      </div>
+
+      <div>
+        <div class="overflow-hidden rounded-md border border-border bg-card shadow-xs">
+          <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">theme.css</div>
+          <div class="px-5 py-5 font-mono text-[13px] leading-loose">
+            <div><span class="text-muted-foreground">:root</span> {{ '{' }}</div>
+            <div class="pl-4">--primary: <span class="text-primary">oklch(0.545 0.155 42)</span>;</div>
+            <div class="pl-4">--background: oklch(0.973 0.005 95);</div>
+            <div class="pl-4">--radius: 0.375rem;</div>
+            <div>{{ '}' }}</div>
+            <div class="mt-1"><span class="text-muted-foreground">.dark</span> {{ '{' }}</div>
+            <div class="pl-4">--primary: <span class="text-primary">oklch(0.620 0.155 45)</span>;</div>
+            <div>{{ '}' }}</div>
+          </div>
+        </div>
+        <a hb-button hbType="outline" [routerLink]="loc.docsLink('theme')" class="mt-6 h-9 px-4">{{ 'landing.theme.view' | t }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="build" class="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border bg-background">
+  <div class="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-12 px-6 py-10 md:grid-cols-[minmax(280px,5fr)_minmax(320px,7fr)]">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{{ 'landing.build.eyebrow' | t }}</p>
+      <h2 class="mt-3 font-display text-[28px] font-semibold leading-[1.15] tracking-tight">{{ 'landing.build.title' | t }}</h2>
+      <p class="mt-3 max-w-[44ch] text-sm leading-[1.65] text-muted-foreground text-pretty">{{ 'landing.build.desc' | t }}</p>
+      <div class="mt-6 flex gap-3">
+        <a hb-button [routerLink]="loc.docsLink('installation')" class="h-9 px-4">{{ 'landing.build.start' | t }}</a>
+      </div>
+    </div>
+
+    <div class="overflow-hidden rounded-md border border-border bg-card shadow-xs">
+      <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">specimen.component.html</div>
+      <div class="px-5 py-5 font-mono text-[13px] leading-loose">
+        <div>&lt;<span class="text-primary">hb-alert</span></div>
+        <div class="pl-4">hbTitle=<span class="text-primary">"Season changed"</span></div>
+        <div class="pl-4">hbDescription=<span class="text-primary">"Autumn arrived in Bavaria overnight."</span> /&gt;</div>
+      </div>
+      <div class="border-t border-border">
+        <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{{ 'landing.build.preview' | t }}</div>
+        <div class="bg-background p-5">
+          <hb-alert hbTitle="Season changed" hbDescription="Autumn arrived in Bavaria overnight." />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sticky top-0 flex h-screen items-center overflow-hidden border-b border-border bg-background">
+  <div class="mx-auto w-full max-w-[1120px] px-6 py-10 text-center">
+    <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{{ 'landing.cta.eyebrow' | t }}</p>
+    <h2 class="mx-auto mt-4 max-w-[20ch] font-display text-[clamp(28px,4vw,40px)] font-semibold italic leading-[1.1] tracking-tight">{{ 'landing.cta.title' | t }}</h2>
+    <p class="mx-auto mt-4 max-w-[48ch] text-sm leading-[1.65] text-muted-foreground">{{ 'landing.cta.desc' | t }}</p>
+    <div class="mt-7 flex flex-wrap justify-center gap-3">
+      <a hb-button href="https://github.com/KauanHerbst/herbst-ui" target="_blank" rel="noreferrer" class="h-10 gap-2 px-6">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+        {{ 'landing.cta.star' | t }}
+      </a>
+      <a hb-button hbType="outline" [routerLink]="loc.docsLink('contributing')" class="h-10 px-6">{{ 'landing.cta.contributing' | t }}</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer class="relative z-[1] bg-background">
+  <div class="mx-auto grid max-w-[1120px] grid-cols-2 gap-8 px-6 pt-16 pb-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
+    <div class="col-span-2 md:col-span-1">
+      <div class="flex items-baseline gap-2">
+        <span class="self-center text-lg leading-none" aria-hidden="true">🍂</span>
+        <span class="font-display text-lg font-semibold italic">Herbst UI</span>
+      </div>
+      <p class="mt-3 max-w-[32ch] text-[13px] leading-relaxed text-muted-foreground">{{ 'landing.footer.tagline' | t }}</p>
+    </div>
+    <div class="flex flex-col gap-2.5">
+      <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{{ 'landing.footer.docs' | t }}</p>
+      <a [routerLink]="loc.docsLink('introduction')" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.introduction' | t }}</a>
+      <a [routerLink]="loc.docsLink()" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'nav.components' | t }}</a>
+      <a [routerLink]="loc.docsLink('theme')" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'nav.theme' | t }}</a>
+      <a [routerLink]="loc.docsLink('colors')" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'nav.colors' | t }}</a>
+    </div>
+    <div class="flex flex-col gap-2.5">
+      <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{{ 'landing.footer.library' | t }}</p>
+      <a [routerLink]="loc.docsLink('cli')" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.cli' | t }}</a>
+      <a [routerLink]="loc.docsLink()" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.blocks' | t }}</a>
+      <a [routerLink]="loc.docsLink('introduction')" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.changelog' | t }}</a>
+    </div>
+    <div class="flex flex-col gap-2.5">
+      <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{{ 'landing.footer.community' | t }}</p>
+      <a href="https://github.com/KauanHerbst/herbst-ui" target="_blank" rel="noreferrer" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.github' | t }}</a>
+      <a href="https://github.com/KauanHerbst/herbst-ui/issues" target="_blank" rel="noreferrer" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.issues' | t }}</a>
+      <a href="https://github.com/KauanHerbst/herbst-ui/discussions" target="_blank" rel="noreferrer" class="text-[13px] text-muted-foreground hover:text-foreground">{{ 'landing.footer.discussions' | t }}</a>
+    </div>
+  </div>
+  <div class="border-t border-border">
+    <div class="mx-auto flex max-w-[1120px] items-center justify-between px-6 py-5 font-mono text-[11px] text-muted-foreground">
+      <span>{{ 'landing.footer.copyright' | t }}</span>
+      <span>{{ 'landing.footer.credit' | t }}</span>
+    </div>
+  </div>
+</footer>
+</div>

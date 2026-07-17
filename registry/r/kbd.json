@@ -1,0 +1,47 @@
+{
+  "name": "kbd",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "kbd/index.ts",
+      "content": "export * from './kbd.component';\nexport * from './kbd-group.component';\nexport * from './kbd.variants';\nexport * from './kbd.imports';\n"
+    },
+    {
+      "path": "kbd/kbd-group.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { kbdGroupVariants } from './kbd.variants';\n\n@Component({\n  selector: 'hb-kbd-group, [hb-kbd-group]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'kbd-group'\" },\n  exportAs: 'hbKbdGroup',\n})\nexport class HbKbdGroupComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(kbdGroupVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "kbd/kbd.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { kbdVariants, type HbKbdSize } from './kbd.variants';\n\n@Component({\n  selector: 'hb-kbd, [hb-kbd]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'kbd'\" },\n  exportAs: 'hbKbd',\n})\nexport class HbKbdComponent {\n  readonly hbSize = input<HbKbdSize>('md');\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() =>\n    cn(kbdVariants({ size: this.hbSize() }), this.class()),\n  );\n}\n"
+    },
+    {
+      "path": "kbd/kbd.imports.ts",
+      "content": "import { HbKbdComponent } from './kbd.component';\nimport { HbKbdGroupComponent } from './kbd-group.component';\n\nexport const HbKbdImports = [HbKbdComponent, HbKbdGroupComponent] as const;\n"
+    },
+    {
+      "path": "kbd/kbd.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const kbdVariants = cva(\n  cn(\n    'pointer-events-none inline-flex w-fit select-none items-center justify-center rounded-sm bg-muted font-mono font-medium text-muted-foreground',\n    '[[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10',\n  ),\n  {\n    variants: {\n      size: {\n        xs: \"h-4 min-w-4 gap-0.5 px-1 text-[10px] [&_svg:not([class*='size-'])]:size-2.5\",\n        sm: \"h-[1.125rem] min-w-[1.125rem] gap-1 px-1 text-[11px] [&_svg:not([class*='size-'])]:size-3\",\n        md: \"h-5 min-w-5 gap-1 px-1 text-xs [&_svg:not([class*='size-'])]:size-3\",\n        lg: \"h-6 min-w-6 gap-1 px-1.5 text-xs [&_svg:not([class*='size-'])]:size-3.5\",\n        xl: \"h-7 min-w-7 gap-1.5 rounded-md px-2 text-sm [&_svg:not([class*='size-'])]:size-4\",\n      },\n    },\n    defaultVariants: { size: 'md' },\n  },\n);\n\nexport const kbdGroupVariants = cva('inline-flex items-center gap-1');\n\nexport type HbKbdSize = NonNullable<VariantProps<typeof kbdVariants>['size']>;\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "kbd-combos.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbKbdImports } from '@herbst/ui';\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorArrowRight } from '@ng-icons/phosphor-icons/regular';\n\n@Component({\n  selector: 'hb-demo-kbd-combos',\n  imports: [HbKbdImports, NgIcon],\n  viewProviders: [provideIcons({ phosphorArrowRight })],\n  template: `\n    <div class=\"flex flex-col gap-3\">\n      <hb-kbd-group>\n        <hb-kbd>⌘</hb-kbd>\n        <hb-kbd>K</hb-kbd>\n      </hb-kbd-group>\n\n      <hb-kbd-group>\n        <hb-kbd>Ctrl</hb-kbd>\n        <span class=\"text-xs text-muted-foreground\">+</span>\n        <hb-kbd>Alt</hb-kbd>\n        <span class=\"text-xs text-muted-foreground\">+</span>\n        <hb-kbd>Del</hb-kbd>\n      </hb-kbd-group>\n\n      <hb-kbd-group>\n        <hb-kbd hbSize=\"lg\">⌘</hb-kbd>\n        <hb-kbd hbSize=\"lg\">\n          <ng-icon name=\"phosphorArrowRight\" />\n        </hb-kbd>\n      </hb-kbd-group>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoKbdCombosComponent {}\n"
+    },
+    {
+      "path": "kbd-inline.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbKbdImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-kbd-inline',\n  imports: [HbKbdImports, HbButtonComponent],\n  template: `\n    <div class=\"flex max-w-md flex-col gap-4\">\n      <p class=\"text-sm text-muted-foreground\">\n        Press <kbd hb-kbd hbSize=\"sm\">⌘</kbd> <kbd hb-kbd hbSize=\"sm\">K</kbd> to open the command\n        palette, or <kbd hb-kbd hbSize=\"sm\">/</kbd> to focus search.\n      </p>\n\n      <button hb-button hbType=\"outline\" class=\"justify-between gap-6\">\n        Search photos\n        <hb-kbd-group>\n          <hb-kbd hbSize=\"xs\">⌘</hb-kbd>\n          <hb-kbd hbSize=\"xs\">K</hb-kbd>\n        </hb-kbd-group>\n      </button>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoKbdInlineComponent {}\n"
+    },
+    {
+      "path": "kbd-sizes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbKbdImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-kbd-sizes',\n  imports: [HbKbdImports],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-3\">\n      <hb-kbd hbSize=\"xs\">Esc</hb-kbd>\n      <hb-kbd hbSize=\"sm\">Tab</hb-kbd>\n      <hb-kbd hbSize=\"md\">Enter</hb-kbd>\n      <hb-kbd hbSize=\"lg\">Space</hb-kbd>\n      <hb-kbd hbSize=\"xl\">Shift</hb-kbd>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoKbdSizesComponent {}\n"
+    }
+  ]
+}

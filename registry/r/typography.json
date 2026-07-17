@@ -1,0 +1,43 @@
+{
+  "name": "typography",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "typography/index.ts",
+      "content": "export * from './typography.directive';\nexport * from './typography.variants';\nexport * from './typography.imports';\n"
+    },
+    {
+      "path": "typography/typography.directive.ts",
+      "content": "import { booleanAttribute, computed, Directive, input } from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  TYPOGRAPHY_ALIGN,\n  TYPOGRAPHY_COLOR,\n  TYPOGRAPHY_WEIGHT,\n  typographyVariants,\n  type HbTypographyAlign,\n  type HbTypographyColor,\n  type HbTypographyVariant,\n  type HbTypographyWeight,\n} from './typography.variants';\n\n@Directive({\n  selector: '[hbTypography]',\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'typography'\" },\n  exportAs: 'hbTypography',\n})\nexport class HbTypographyDirective {\n  readonly hbTypography = input<HbTypographyVariant>('p');\n  readonly hbColor = input<HbTypographyColor>();\n  readonly hbAlign = input<HbTypographyAlign>();\n  readonly hbWeight = input<HbTypographyWeight>();\n  readonly hbTruncate = input(false, { transform: booleanAttribute });\n  readonly class = input<ClassValue>('');\n\n  protected readonly classes = computed(() =>\n    cn(\n      typographyVariants({ variant: this.hbTypography() }),\n      this.hbColor() ? TYPOGRAPHY_COLOR[this.hbColor()!] : '',\n      this.hbAlign() ? TYPOGRAPHY_ALIGN[this.hbAlign()!] : '',\n      this.hbWeight() ? TYPOGRAPHY_WEIGHT[this.hbWeight()!] : '',\n      this.hbTruncate() && 'truncate',\n      this.class(),\n    ),\n  );\n}\n"
+    },
+    {
+      "path": "typography/typography.imports.ts",
+      "content": "import { HbTypographyDirective } from './typography.directive';\n\nexport const HbTypographyImports = [HbTypographyDirective] as const;\n"
+    },
+    {
+      "path": "typography/typography.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const typographyVariants = cva('', {\n  variants: {\n    variant: {\n      h1: 'scroll-m-20 font-display text-4xl font-semibold tracking-tight text-balance',\n      h2: 'scroll-m-20 border-b border-border pb-2 font-display text-3xl font-semibold tracking-tight first:mt-0',\n      h3: 'scroll-m-20 font-display text-2xl font-semibold tracking-tight',\n      h4: 'scroll-m-20 font-display text-xl font-semibold tracking-tight',\n      p: 'leading-7 [&:not(:first-child)]:mt-6',\n      blockquote: 'mt-6 border-l-2 border-border pl-6 italic',\n      list: 'my-6 ml-6 list-disc [&>li]:mt-2',\n      'inline-code':\n        'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',\n      lead: 'text-xl text-muted-foreground',\n      large: 'text-lg font-semibold',\n      small: 'text-sm leading-none font-medium',\n      muted: 'text-sm text-muted-foreground',\n    },\n  },\n  defaultVariants: { variant: 'p' },\n});\n\nexport type HbTypographyVariant = NonNullable<VariantProps<typeof typographyVariants>['variant']>;\nexport type HbTypographyColor =\n  | 'default'\n  | 'muted'\n  | 'primary'\n  | 'destructive'\n  | 'success'\n  | 'warning';\nexport type HbTypographyAlign = 'left' | 'center' | 'right' | 'justify';\nexport type HbTypographyWeight = 'normal' | 'medium' | 'semibold' | 'bold';\n\nexport const TYPOGRAPHY_COLOR: Record<HbTypographyColor, string> = {\n  default: '',\n  muted: 'text-muted-foreground',\n  primary: 'text-primary',\n  destructive: 'text-destructive',\n  success: 'text-success',\n  warning: 'text-warning',\n};\n\nexport const TYPOGRAPHY_ALIGN: Record<HbTypographyAlign, string> = {\n  left: 'text-left',\n  center: 'text-center',\n  right: 'text-right',\n  justify: 'text-justify',\n};\n\nexport const TYPOGRAPHY_WEIGHT: Record<HbTypographyWeight, string> = {\n  normal: 'font-normal',\n  medium: 'font-medium',\n  semibold: 'font-semibold',\n  bold: 'font-bold',\n};\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "typography-modifiers.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbTypographyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-typography-modifiers',\n  imports: [HbTypographyImports],\n  template: `\n    <div class=\"flex w-full max-w-lg flex-col gap-4\">\n      <div class=\"flex flex-col gap-1\">\n        <p hbTypography=\"p\" hbColor=\"primary\">Primary — saved</p>\n        <p hbTypography=\"p\" hbColor=\"success\">Success — uploaded</p>\n        <p hbTypography=\"p\" hbColor=\"warning\">Warning — low light</p>\n        <p hbTypography=\"p\" hbColor=\"destructive\">Destructive — deleted</p>\n        <p hbTypography=\"p\" hbColor=\"muted\">Muted — archived</p>\n      </div>\n\n      <div class=\"flex flex-col gap-1\">\n        <p hbTypography=\"large\" hbWeight=\"normal\">Weight normal</p>\n        <p hbTypography=\"large\" hbWeight=\"medium\">Weight medium</p>\n        <p hbTypography=\"large\" hbWeight=\"semibold\">Weight semibold</p>\n        <p hbTypography=\"large\" hbWeight=\"bold\">Weight bold</p>\n      </div>\n\n      <div class=\"flex flex-col gap-1\">\n        <p hbTypography=\"small\" hbAlign=\"left\">Aligned left</p>\n        <p hbTypography=\"small\" hbAlign=\"center\">Aligned center</p>\n        <p hbTypography=\"small\" hbAlign=\"right\">Aligned right</p>\n        <p hbTypography=\"muted\" hbAlign=\"justify\">\n          Justified paragraph that stretches each line to both edges so the autumn notes form a tidy\n          rectangular block of text.\n        </p>\n      </div>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoTypographyModifiersComponent {}\n"
+    },
+    {
+      "path": "typography-truncate.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbTypographyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-typography-truncate',\n  imports: [HbTypographyImports],\n  template: `\n    <div class=\"flex w-56 flex-col gap-2 rounded-md border border-border p-3\">\n      <p hbTypography=\"small\" hbColor=\"muted\">Fixed 14rem column</p>\n\n      <p hbTypography=\"large\" hbTruncate>Autumn morning in the Black Forest</p>\n\n      <p hbTypography=\"p\">\n        Autumn morning in the Black Forest — wraps normally onto several lines.\n      </p>\n\n      <p hbTypography=\"p\" hbWeight=\"bold\" hbColor=\"primary\" [class]=\"'uppercase tracking-widest'\">\n        Custom class\n      </p>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoTypographyTruncateComponent {}\n"
+    },
+    {
+      "path": "typography-variants.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbTypographyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-typography-variants',\n  imports: [HbTypographyImports],\n  template: `\n    <div class=\"flex w-full max-w-lg flex-col gap-3\">\n      <h1 hbTypography=\"h1\">Autumn in the Black Forest</h1>\n      <h2 hbTypography=\"h2\">The turning leaves</h2>\n      <h3 hbTypography=\"h3\">Colour & light</h3>\n      <h4 hbTypography=\"h4\">What to look for</h4>\n\n      <p hbTypography=\"lead\">A quiet season of mist, wind, and falling leaves.</p>\n      <p hbTypography=\"p\">\n        Oaks and beeches turn amber and rust, the mornings grow cool and grey, and the forest floor\n        fills with colour underfoot.\n      </p>\n\n      <blockquote hbTypography=\"blockquote\">“Autumn is a second spring.”</blockquote>\n\n      <ul hbTypography=\"list\">\n        <li>Amber oak leaves</li>\n        <li>Cool, misty mornings</li>\n        <li>Chestnuts underfoot</li>\n      </ul>\n\n      <p hbTypography=\"p\">\n        The album ID is <code hbTypography=\"inline-code\">IMG·019</code> from Freiburg.\n      </p>\n\n      <p hbTypography=\"large\">Large statement text</p>\n      <p hbTypography=\"small\">Small helper text</p>\n      <p hbTypography=\"muted\">Muted secondary note</p>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoTypographyVariantsComponent {}\n"
+    }
+  ]
+}

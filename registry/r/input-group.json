@@ -1,0 +1,47 @@
+{
+  "name": "input-group",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "input-group/index.ts",
+      "content": "export * from './input-group.component';\nexport * from './input-group-addon.component';\nexport * from './input-group-text.component';\nexport * from './input-group.variants';\nexport * from './input-group.imports';\n"
+    },
+    {
+      "path": "input-group/input-group-addon.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { inputGroupAddonVariants, type HbInputGroupAlign } from './input-group.variants';\n\n@Component({\n  selector: 'hb-input-group-addon, [hb-input-group-addon]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-align]': 'hbAlign()',\n    '[attr.data-slot]': \"'input-group-addon'\",\n  },\n  exportAs: 'hbInputGroupAddon',\n})\nexport class HbInputGroupAddonComponent {\n  readonly hbAlign = input<HbInputGroupAlign>('inline-start');\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() =>\n    cn(inputGroupAddonVariants({ align: this.hbAlign() }), this.class()),\n  );\n}\n"
+    },
+    {
+      "path": "input-group/input-group-text.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { inputGroupTextVariants } from './input-group.variants';\n\n@Component({\n  selector: 'hb-input-group-text, [hb-input-group-text]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'input-group-text'\" },\n  exportAs: 'hbInputGroupText',\n})\nexport class HbInputGroupTextComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(inputGroupTextVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "input-group/input-group.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { inputGroupVariants } from './input-group.variants';\n\n@Component({\n  selector: 'hb-input-group, [hb-input-group]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', role: 'group', '[attr.data-slot]': \"'input-group'\" },\n  exportAs: 'hbInputGroup',\n})\nexport class HbInputGroupComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(inputGroupVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "input-group/input-group.imports.ts",
+      "content": "import { HbInputGroupAddonComponent } from './input-group-addon.component';\nimport { HbInputGroupComponent } from './input-group.component';\nimport { HbInputGroupTextComponent } from './input-group-text.component';\n\nexport const HbInputGroupImports = [\n  HbInputGroupComponent,\n  HbInputGroupAddonComponent,\n  HbInputGroupTextComponent,\n] as const;\n"
+    },
+    {
+      "path": "input-group/input-group.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const inputGroupVariants = cva(\n  cn(\n    'group/input-group relative flex w-full flex-wrap items-center rounded-md border border-input bg-background shadow-xs',\n    'outline-none transition-[color,box-shadow]',\n    'focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50',\n    'has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:ring-destructive/20',\n    'has-[:disabled]:opacity-50',\n    '[&_[data-slot=input]]:min-w-0 [&_[data-slot=input]]:flex-1 [&_[data-slot=input]]:border-0',\n    '[&_[data-slot=input]]:bg-transparent [&_[data-slot=input]]:shadow-none',\n    '[&_[data-slot=input]]:outline-none [&_[data-slot=input]]:focus-visible:ring-0',\n  ),\n);\n\nexport const inputGroupAddonVariants = cva(\n  'flex shrink-0 items-center gap-2 text-sm text-muted-foreground [&>ng-icon>svg]:size-4',\n  {\n    variants: {\n      align: {\n        'inline-start': 'order-first pl-3',\n        'inline-end': 'order-last pr-3',\n        'block-start': 'order-first w-full px-3 pt-2',\n        'block-end': 'order-last w-full px-3 pb-2',\n      },\n    },\n    defaultVariants: { align: 'inline-start' },\n  },\n);\n\nexport const inputGroupTextVariants = cva('text-sm text-muted-foreground');\n\nexport type HbInputGroupAlign = NonNullable<VariantProps<typeof inputGroupAddonVariants>['align']>;\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "input-group-blocks.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbInputDirective, HbInputGroupImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-input-group-blocks',\n  imports: [HbInputGroupImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <hb-input-group class=\"w-full max-w-sm\">\n      <hb-input-group-addon hbAlign=\"block-start\">\n        <hb-input-group-text class=\"font-medium text-foreground\">Field notes</hb-input-group-text>\n      </hb-input-group-addon>\n\n      <textarea hb-input placeholder=\"Oak leaves turning amber along the trail…\"></textarea>\n\n      <hb-input-group-addon hbAlign=\"block-end\" class=\"justify-between\">\n        <hb-input-group-text>Markdown supported</hb-input-group-text>\n        <button hb-button hbType=\"secondary\" hbSize=\"sm\">Save</button>\n      </hb-input-group-addon>\n    </hb-input-group>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoInputGroupBlocksComponent {}\n"
+    },
+    {
+      "path": "input-group-inline.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbInputDirective, HbInputGroupImports } from '@herbst/ui';\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorMagnifyingGlass } from '@ng-icons/phosphor-icons/regular';\n\n@Component({\n  selector: 'hb-demo-input-group-inline',\n  imports: [HbInputGroupImports, HbInputDirective, NgIcon],\n  viewProviders: [provideIcons({ phosphorMagnifyingGlass })],\n  template: `\n    <div class=\"flex w-full max-w-sm flex-col gap-3\">\n      <hb-input-group>\n        <hb-input-group-addon>\n          <ng-icon name=\"phosphorMagnifyingGlass\" />\n        </hb-input-group-addon>\n        <input hb-input placeholder=\"Search photos\" />\n      </hb-input-group>\n\n      <hb-input-group>\n        <hb-input-group-addon>\n          <hb-input-group-text>https://</hb-input-group-text>\n        </hb-input-group-addon>\n        <input hb-input placeholder=\"herbst\" />\n        <hb-input-group-addon hbAlign=\"inline-end\">\n          <hb-input-group-text>.org</hb-input-group-text>\n        </hb-input-group-addon>\n      </hb-input-group>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoInputGroupInlineComponent {}\n"
+    }
+  ]
+}

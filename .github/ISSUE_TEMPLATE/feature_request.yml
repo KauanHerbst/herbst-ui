@@ -1,0 +1,23 @@
+name: 🍂 Feature request
+description: Uma ideia para o catálogo · An idea for the catalogue
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema · Problem
+      description: Que necessidade essa feature resolve · What need does this feature solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta · Proposal
+      description: Como você imagina a solução (API, comportamento, visual) · How you imagine the solution (API, behavior, visuals)
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas · Alternatives
+      description: Outros caminhos considerados · Other approaches considered

@@ -1,0 +1,32 @@
+name: 🐛 Bug report
+description: Algo não funciona como deveria · Something isn't working as expected
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Componente · Component
+      placeholder: 'ex: hb-tooltip'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão · Version
+      placeholder: '@herbst/ui 0.0.1 · Angular 22'
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição · Description
+      description: O que aconteceu e o que você esperava · What happened and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reprodução · Reproduction
+      description: Passos mínimos ou link (StackBlitz) · Minimal steps or link (StackBlitz)
+    validations:
+      required: true

@@ -1,0 +1,51 @@
+{
+  "name": "badge",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "badge/badge.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  badgeVariants,\n  type HbBadgeShape,\n  type HbBadgeSize,\n  type HbBadgeType,\n} from './badge.variants';\n\n@Component({\n  selector: 'hb-badge, [hb-badge]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'badge'\",\n  },\n  exportAs: 'hbBadge',\n})\nexport class HbBadgeComponent {\n  readonly hbType = input<HbBadgeType>('default');\n  readonly hbShape = input<HbBadgeShape>('pill');\n  readonly hbSize = input<HbBadgeSize>('md');\n  readonly class = input<ClassValue>('');\n\n  protected readonly classes = computed(() =>\n    cn(\n      badgeVariants({ type: this.hbType(), shape: this.hbShape(), size: this.hbSize() }),\n      this.class(),\n    ),\n  );\n}\n"
+    },
+    {
+      "path": "badge/badge.imports.ts",
+      "content": "import { HbBadgeComponent } from './badge.component';\nimport { HbOverlayBadgeComponent } from './overlay-badge.component';\n\nexport const HbBadgeImports = [HbBadgeComponent, HbOverlayBadgeComponent] as const;\n"
+    },
+    {
+      "path": "badge/badge.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const badgeVariants = cva(\n  cn(\n    'inline-flex items-center justify-center gap-1 whitespace-nowrap font-medium tabular-nums',\n    'transition-colors [&>ng-icon>svg]:size-[1em]',\n    'focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none',\n  ),\n  {\n    variants: {\n      type: {\n        default: 'bg-primary text-primary-foreground',\n        secondary: 'bg-secondary text-secondary-foreground',\n        destructive: 'bg-destructive text-destructive-foreground',\n        success: 'bg-success text-success-foreground',\n        warning: 'bg-warning text-warning-foreground',\n        outline: 'border border-border text-foreground',\n      },\n      shape: {\n        rounded: 'rounded-md',\n        pill: 'rounded-full',\n        circle: 'aspect-square rounded-full p-0',\n        square: 'rounded-none',\n      },\n      size: {\n        xs: 'h-4 min-w-4 px-1 text-[0.625rem]',\n        sm: 'h-5 min-w-5 px-1.5 text-xs',\n        md: 'h-6 min-w-6 px-2 text-xs',\n        lg: 'h-7 min-w-7 px-2.5 text-sm',\n        xl: 'h-8 min-w-8 px-3 text-base',\n      },\n    },\n    defaultVariants: { type: 'default', shape: 'pill', size: 'md' },\n  },\n);\n\nexport const overlayBadgePositionVariants = cva('pointer-events-none absolute z-10', {\n  variants: {\n    position: {\n      'top-right': 'top-0 right-0 -translate-y-1/2 translate-x-1/2',\n      'top-left': 'top-0 left-0 -translate-x-1/2 -translate-y-1/2',\n      'bottom-right': 'right-0 bottom-0 translate-x-1/2 translate-y-1/2',\n      'bottom-left': 'bottom-0 left-0 -translate-x-1/2 translate-y-1/2',\n    },\n  },\n  defaultVariants: { position: 'top-right' },\n});\n\nexport type HbBadgeType = NonNullable<VariantProps<typeof badgeVariants>['type']>;\nexport type HbBadgeShape = NonNullable<VariantProps<typeof badgeVariants>['shape']>;\nexport type HbBadgeSize = NonNullable<VariantProps<typeof badgeVariants>['size']>;\nexport type HbBadgePosition = NonNullable<\n  VariantProps<typeof overlayBadgePositionVariants>['position']\n>;\n"
+    },
+    {
+      "path": "badge/index.ts",
+      "content": "export * from './badge.component';\nexport * from './overlay-badge.component';\nexport * from './badge.variants';\nexport * from './badge.imports';\n"
+    },
+    {
+      "path": "badge/overlay-badge.component.ts",
+      "content": "import {\n  booleanAttribute,\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { HbBadgeComponent } from './badge.component';\nimport {\n  overlayBadgePositionVariants,\n  type HbBadgePosition,\n  type HbBadgeSize,\n  type HbBadgeType,\n} from './badge.variants';\n\n@Component({\n  selector: 'hb-overlay-badge',\n  imports: [HbBadgeComponent],\n  template: `\n    <ng-content />\n    <span\n      hb-badge\n      [hbType]=\"hbType()\"\n      hbShape=\"pill\"\n      [hbSize]=\"hbSize()\"\n      [class]=\"badgeClasses()\"\n      aria-live=\"polite\"\n    >\n      @if (!isDot()) {\n        {{ hbValue() }}\n      }\n    </span>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'overlay-badge'\",\n  },\n  exportAs: 'hbOverlayBadge',\n})\nexport class HbOverlayBadgeComponent {\n  readonly hbValue = input<string | number | null>(null);\n  readonly hbType = input<HbBadgeType>('destructive');\n  readonly hbPosition = input<HbBadgePosition>('top-right');\n  readonly hbDot = input(false, { transform: booleanAttribute });\n  readonly hbSize = input<HbBadgeSize>('sm');\n  readonly class = input<ClassValue>('');\n\n  protected readonly classes = computed(() => cn('relative inline-flex w-fit', this.class()));\n\n  protected readonly isDot = computed(() => {\n    const value = this.hbValue();\n    return this.hbDot() || value == null || value === '';\n  });\n\n  protected readonly badgeClasses = computed(() =>\n    cn(\n      overlayBadgePositionVariants({ position: this.hbPosition() }),\n      'ring-2 ring-background',\n      this.isDot() ? 'size-2.5 min-w-0 p-0' : '',\n    ),\n  );\n}\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "badge-overlay.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorBell, phosphorEnvelope } from '@ng-icons/phosphor-icons/regular';\n\nimport { HbBadgeImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-badge-overlay',\n  imports: [HbBadgeImports, NgIcon],\n  providers: [provideIcons({ phosphorBell, phosphorEnvelope })],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-8\">\n      <hb-overlay-badge [hbValue]=\"5\">\n        <ng-icon name=\"phosphorBell\" class=\"text-muted-foreground [&>svg]:size-6\" />\n      </hb-overlay-badge>\n      <hb-overlay-badge [hbValue]=\"99\" hbType=\"warning\" hbPosition=\"top-left\">\n        <ng-icon name=\"phosphorEnvelope\" class=\"text-muted-foreground [&>svg]:size-6\" />\n      </hb-overlay-badge>\n      <hb-overlay-badge hbDot hbType=\"success\" hbPosition=\"bottom-right\">\n        <ng-icon name=\"phosphorBell\" class=\"text-muted-foreground [&>svg]:size-6\" />\n      </hb-overlay-badge>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoBadgeOverlayComponent {}\n"
+    },
+    {
+      "path": "badge-shapes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbBadgeImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-badge-shapes',\n  imports: [HbBadgeImports],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-3\">\n      <span hb-badge hbShape=\"rounded\">rounded</span>\n      <span hb-badge hbShape=\"pill\">pill</span>\n      <span hb-badge hbShape=\"square\">square</span>\n      <span hb-badge hbShape=\"circle\" hbType=\"destructive\">3</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoBadgeShapesComponent {}\n"
+    },
+    {
+      "path": "badge-sizes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbBadgeImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-badge-sizes',\n  imports: [HbBadgeImports],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-2\">\n      <span hb-badge hbType=\"secondary\" hbSize=\"xs\">xs</span>\n      <span hb-badge hbType=\"secondary\" hbSize=\"sm\">sm</span>\n      <span hb-badge hbType=\"secondary\" hbSize=\"md\">md</span>\n      <span hb-badge hbType=\"secondary\" hbSize=\"lg\">lg</span>\n      <span hb-badge hbType=\"secondary\" hbSize=\"xl\">xl</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoBadgeSizesComponent {}\n"
+    },
+    {
+      "path": "badge-types.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorCheckCircle } from '@ng-icons/phosphor-icons/regular';\n\nimport { HbBadgeImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-badge-types',\n  imports: [HbBadgeImports, NgIcon],\n  providers: [provideIcons({ phosphorCheckCircle })],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-2\">\n      <span hb-badge>Default</span>\n      <span hb-badge hbType=\"secondary\">Secondary</span>\n      <span hb-badge hbType=\"success\"><ng-icon name=\"phosphorCheckCircle\" /> Live</span>\n      <span hb-badge hbType=\"warning\">Fading</span>\n      <span hb-badge hbType=\"destructive\">Discarded</span>\n      <span hb-badge hbType=\"outline\">Outline</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoBadgeTypesComponent {}\n"
+    }
+  ]
+}

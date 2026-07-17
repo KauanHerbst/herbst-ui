@@ -1,0 +1,63 @@
+{
+  "name": "empty",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "empty/empty-content.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { emptyContentVariants } from './empty.variants';\n\n@Component({\n  selector: 'hb-empty-content, [hb-empty-content]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty-content'\" },\n  exportAs: 'hbEmptyContent',\n})\nexport class HbEmptyContentComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(emptyContentVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "empty/empty-description.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { emptyDescriptionVariants } from './empty.variants';\n\n@Component({\n  selector: 'hb-empty-description, [hb-empty-description]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty-description'\" },\n  exportAs: 'hbEmptyDescription',\n})\nexport class HbEmptyDescriptionComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(emptyDescriptionVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "empty/empty-header.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { emptyHeaderVariants } from './empty.variants';\n\n@Component({\n  selector: 'hb-empty-header, [hb-empty-header]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty-header'\" },\n  exportAs: 'hbEmptyHeader',\n})\nexport class HbEmptyHeaderComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(emptyHeaderVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "empty/empty-media.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { emptyMediaVariants, type HbEmptyMediaVariant } from './empty.variants';\n\n@Component({\n  selector: 'hb-empty-media, [hb-empty-media]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty-media'\" },\n  exportAs: 'hbEmptyMedia',\n})\nexport class HbEmptyMediaComponent {\n  readonly hbVariant = input<HbEmptyMediaVariant>('default');\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() =>\n    cn(emptyMediaVariants({ variant: this.hbVariant() }), this.class()),\n  );\n}\n"
+    },
+    {
+      "path": "empty/empty-title.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { emptyTitleVariants } from './empty.variants';\n\n@Component({\n  selector: 'hb-empty-title, [hb-empty-title]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty-title'\" },\n  exportAs: 'hbEmptyTitle',\n})\nexport class HbEmptyTitleComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(emptyTitleVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "empty/empty.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  emptyVariants,\n  type HbEmptyBackground,\n  type HbEmptySize,\n  type HbEmptyVariant,\n} from './empty.variants';\n\n@Component({\n  selector: 'hb-empty, [hb-empty]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'empty'\" },\n  exportAs: 'hbEmpty',\n})\nexport class HbEmptyComponent {\n  readonly hbSize = input<HbEmptySize>('md');\n  readonly hbVariant = input<HbEmptyVariant>('default');\n  readonly hbBackground = input<HbEmptyBackground>('none');\n  readonly class = input<ClassValue>('');\n\n  protected readonly classes = computed(() =>\n    cn(\n      emptyVariants({\n        size: this.hbSize(),\n        variant: this.hbVariant(),\n        background: this.hbBackground(),\n      }),\n      this.class(),\n    ),\n  );\n}\n"
+    },
+    {
+      "path": "empty/empty.imports.ts",
+      "content": "import { HbEmptyComponent } from './empty.component';\nimport { HbEmptyContentComponent } from './empty-content.component';\nimport { HbEmptyDescriptionComponent } from './empty-description.component';\nimport { HbEmptyHeaderComponent } from './empty-header.component';\nimport { HbEmptyMediaComponent } from './empty-media.component';\nimport { HbEmptyTitleComponent } from './empty-title.component';\n\nexport const HbEmptyImports = [\n  HbEmptyComponent,\n  HbEmptyHeaderComponent,\n  HbEmptyMediaComponent,\n  HbEmptyTitleComponent,\n  HbEmptyDescriptionComponent,\n  HbEmptyContentComponent,\n] as const;\n"
+    },
+    {
+      "path": "empty/empty.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const emptyVariants = cva(\n  cn(\n    'flex w-full min-w-0 flex-col items-center justify-center gap-6 rounded-lg text-center text-balance',\n  ),\n  {\n    variants: {\n      size: {\n        xs: 'gap-3 p-4',\n        sm: 'gap-4 p-6',\n        md: 'gap-6 p-8',\n        lg: 'gap-8 p-12',\n        xl: 'gap-10 p-16',\n      },\n      variant: {\n        default: '',\n        outline: 'border border-dashed border-border',\n      },\n      background: {\n        none: '',\n        muted: 'bg-muted/30',\n      },\n    },\n    defaultVariants: { size: 'md', variant: 'default', background: 'none' },\n  },\n);\n\nexport const emptyHeaderVariants = cva('flex max-w-md flex-col items-center gap-2 text-center');\n\nexport const emptyMediaVariants = cva(\n  cn('mb-2 flex shrink-0 items-center justify-center text-foreground'),\n  {\n    variants: {\n      variant: {\n        default: 'bg-transparent',\n        icon: cn(\n          'size-10 rounded-lg bg-muted text-foreground',\n          \"[&_ng-icon]:text-[1.5rem] [&_svg:not([class*='size-'])]:size-6\",\n        ),\n      },\n    },\n    defaultVariants: { variant: 'default' },\n  },\n);\n\nexport const emptyTitleVariants = cva('text-lg font-medium tracking-tight');\nexport const emptyDescriptionVariants = cva(\n  cn(\n    'text-sm/relaxed text-muted-foreground',\n    '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary',\n  ),\n);\n\nexport const emptyContentVariants = cva(\n  'flex w-full max-w-sm min-w-0 flex-col items-center justify-center gap-2 text-sm text-balance',\n);\n\nexport type HbEmptySize = NonNullable<VariantProps<typeof emptyVariants>['size']>;\nexport type HbEmptyVariant = NonNullable<VariantProps<typeof emptyVariants>['variant']>;\nexport type HbEmptyBackground = NonNullable<VariantProps<typeof emptyVariants>['background']>;\nexport type HbEmptyMediaVariant = NonNullable<VariantProps<typeof emptyMediaVariants>['variant']>;\n"
+    },
+    {
+      "path": "empty/index.ts",
+      "content": "export * from './empty.component';\nexport * from './empty-header.component';\nexport * from './empty-media.component';\nexport * from './empty-title.component';\nexport * from './empty-description.component';\nexport * from './empty-content.component';\nexport * from './empty.variants';\nexport * from './empty.imports';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "empty-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorMagnifyingGlass } from '@ng-icons/phosphor-icons/regular';\n\nimport { HbButtonComponent, HbEmptyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-empty-basic',\n  imports: [HbEmptyImports, HbButtonComponent, NgIcon],\n  providers: [provideIcons({ phosphorMagnifyingGlass })],\n  template: `\n    <hb-empty class=\"w-full max-w-md rounded-lg border border-border\">\n      <hb-empty-header>\n        <hb-empty-media hbVariant=\"icon\">\n          <ng-icon name=\"phosphorMagnifyingGlass\" />\n        </hb-empty-media>\n        <hb-empty-title>No photos found</hb-empty-title>\n        <hb-empty-description>\n          Try a different search, or add a new autumn photo.\n        </hb-empty-description>\n      </hb-empty-header>\n\n      <hb-empty-content>\n        <button hb-button hbSize=\"sm\">Add photo</button>\n      </hb-empty-content>\n    </hb-empty>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoEmptyBasicComponent {}\n"
+    },
+    {
+      "path": "empty-sizes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbEmptyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-empty-sizes',\n  imports: [HbEmptyImports],\n  template: `\n    <div class=\"flex w-full max-w-md flex-col gap-4\">\n      <hb-empty hbSize=\"xs\" class=\"rounded-lg border border-border\">\n        <hb-empty-header>\n          <hb-empty-title>Extra small</hb-empty-title>\n          <hb-empty-description>Tight padding for inline empty states.</hb-empty-description>\n        </hb-empty-header>\n      </hb-empty>\n\n      <hb-empty hbSize=\"lg\" class=\"rounded-lg border border-border\">\n        <hb-empty-header>\n          <hb-empty-title>Large</hb-empty-title>\n          <hb-empty-description>Generous padding for full-page empty states.</hb-empty-description>\n        </hb-empty-header>\n      </hb-empty>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoEmptySizesComponent {}\n"
+    },
+    {
+      "path": "empty-variants.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorLeaf } from '@ng-icons/phosphor-icons/regular';\n\nimport { HbEmptyImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-empty-variants',\n  imports: [HbEmptyImports, NgIcon],\n  providers: [provideIcons({ phosphorLeaf })],\n  template: `\n    <div class=\"flex w-full max-w-md flex-col gap-4\">\n      <hb-empty hbVariant=\"outline\" class=\"rounded-lg\">\n        <hb-empty-header>\n          <hb-empty-media hbVariant=\"icon\"><ng-icon name=\"phosphorLeaf\" /></hb-empty-media>\n          <hb-empty-title>Outline</hb-empty-title>\n          <hb-empty-description>A dashed border frames the empty region.</hb-empty-description>\n        </hb-empty-header>\n      </hb-empty>\n\n      <hb-empty hbBackground=\"muted\" class=\"rounded-lg\">\n        <hb-empty-header>\n          <hb-empty-media hbVariant=\"icon\"><ng-icon name=\"phosphorLeaf\" /></hb-empty-media>\n          <hb-empty-title>Muted background</hb-empty-title>\n          <hb-empty-description>A soft fill sets the region apart.</hb-empty-description>\n        </hb-empty-header>\n      </hb-empty>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoEmptyVariantsComponent {}\n"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "core",
+  "type": "registry:lib",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "core/button-group.ts",
+      "content": "import { InjectionToken, type Signal } from '@angular/core';\n\nexport type HbButtonGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\nexport type HbButtonGroupOrientation = 'horizontal' | 'vertical';\n\nexport interface HbButtonGroupContext {\n  readonly size: Signal<HbButtonGroupSize | null>;\n  readonly orientation: Signal<HbButtonGroupOrientation>;\n}\n\nexport const HB_BUTTON_GROUP = new InjectionToken<HbButtonGroupContext>('HB_BUTTON_GROUP');\n"
+    },
+    {
+      "path": "core/index.ts",
+      "content": "export * from './button-group';\n"
+    }
+  ]
+}

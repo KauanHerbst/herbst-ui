@@ -1,3 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+@import '@angular/cdk/overlay-prebuilt.css';
+@import '../projects/herbst/src/lib/shared/styles/theme.css';
+@import './app/docs/docs.css';
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "chip",
+  "type": "registry:component",
+  "dependencies": [
+    "@ng-icons/core",
+    "@ng-icons/phosphor-icons",
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "chip/chip.component.ts",
+      "content": "import {\n  booleanAttribute,\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  effect,\n  input,\n  output,\n  signal,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorX } from '@ng-icons/phosphor-icons/regular';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { chipVariants, type HbChipSize, type HbChipType } from './chip.variants';\n\n@Component({\n  selector: 'hb-chip, [hb-chip]',\n  imports: [NgIcon],\n  template: `\n    @if (hbImage() && !imageError()) {\n      <img\n        [src]=\"hbImage()\"\n        [alt]=\"hbImageAlt()\"\n        class=\"-ml-1 size-[1.4em] shrink-0 rounded-full object-cover\"\n        (error)=\"imageError.set(true)\"\n      />\n    } @else if (hbIcon()) {\n      <ng-icon [name]=\"hbIcon()\" class=\"-ml-0.5 shrink-0\" />\n    }\n\n    <ng-content />\n\n    @if (hbRemovable()) {\n      <button\n        type=\"button\"\n        [class]=\"removeClasses\"\n        aria-label=\"Remove\"\n        [disabled]=\"hbDisabled()\"\n        (click)=\"onRemove($event)\"\n      >\n        <ng-icon [name]=\"hbRemoveIcon() || 'phosphorX'\" />\n      </button>\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  viewProviders: [provideIcons({ phosphorX })],\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'chip'\",\n    '[attr.data-disabled]': 'hbDisabled() ? \"\" : null',\n  },\n  exportAs: 'hbChip',\n})\nexport class HbChipComponent {\n  readonly hbIcon = input('');\n  readonly hbImage = input('');\n  readonly hbImageAlt = input('');\n  readonly hbRemovable = input(false, { transform: booleanAttribute });\n  readonly hbRemoveIcon = input('');\n  readonly hbType = input<HbChipType>('secondary');\n  readonly hbSize = input<HbChipSize>('md');\n  readonly hbDisabled = input(false, { transform: booleanAttribute });\n  readonly class = input<ClassValue>('');\n\n  readonly hbRemove = output<void>();\n\n  protected readonly imageError = signal(false);\n\n  constructor() {\n    effect(() => {\n      this.hbImage();\n      this.imageError.set(false);\n    });\n  }\n\n  protected readonly classes = computed(() =>\n    cn(\n      chipVariants({ type: this.hbType(), size: this.hbSize() }),\n      this.hbDisabled() ? 'pointer-events-none opacity-50' : '',\n      this.class(),\n    ),\n  );\n\n  protected readonly removeClasses = cn(\n    '-mr-1 ml-0.5 inline-flex shrink-0 items-center justify-center rounded-full',\n    'opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none',\n    '[&>ng-icon>svg]:size-[0.9em]',\n  );\n\n  protected onRemove(event: Event): void {\n    event.stopPropagation();\n    this.hbRemove.emit();\n  }\n}\n"
+    },
+    {
+      "path": "chip/chip.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const chipVariants = cva(\n  cn(\n    'inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full font-medium',\n    'transition-colors [&>ng-icon>svg]:size-[1em]',\n    'focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none',\n  ),\n  {\n    variants: {\n      type: {\n        default: 'bg-primary text-primary-foreground',\n        secondary: 'bg-secondary text-secondary-foreground',\n        destructive: 'bg-destructive text-destructive-foreground',\n        success: 'bg-success text-success-foreground',\n        warning: 'bg-warning text-warning-foreground',\n        outline: 'border border-border text-foreground',\n      },\n      size: {\n        xs: 'h-6 gap-1 px-2 text-xs',\n        sm: 'h-7 px-2.5 text-xs',\n        md: 'h-8 px-3 text-sm',\n        lg: 'h-9 px-3.5 text-sm',\n        xl: 'h-10 px-4 text-base',\n      },\n    },\n    defaultVariants: { type: 'secondary', size: 'md' },\n  },\n);\n\nexport type HbChipType = NonNullable<VariantProps<typeof chipVariants>['type']>;\nexport type HbChipSize = NonNullable<VariantProps<typeof chipVariants>['size']>;\n"
+    },
+    {
+      "path": "chip/index.ts",
+      "content": "export * from './chip.component';\nexport * from './chip.variants';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "chip-rich.ts",
+      "content": "import { ChangeDetectionStrategy, Component, signal } from '@angular/core';\n\nimport { provideIcons } from '@ng-icons/core';\nimport { phosphorTag } from '@ng-icons/phosphor-icons/regular';\n\nimport { HbChipComponent } from '@herbst/ui';\n\nconst avatar =\n  'data:image/svg+xml,' +\n  encodeURIComponent(\n    \"<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'>\" +\n      \"<rect width='48' height='48' fill='#A64B2A'/></svg>\",\n  );\n\n@Component({\n  selector: 'hb-demo-chip-rich',\n  imports: [HbChipComponent],\n  providers: [provideIcons({ phosphorTag })],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-2\">\n      <span hb-chip hbIcon=\"phosphorTag\">Tagged</span>\n      <span hb-chip hbType=\"outline\" [hbImage]=\"avatar\" hbImageAlt=\"Kauan\">Kauan</span>\n\n      @if (!removed()) {\n        <span hb-chip hbType=\"outline\" hbRemovable (hbRemove)=\"removed.set(true)\">Removable</span>\n      }\n\n      <span hb-chip hbDisabled>Disabled</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoChipRichComponent {\n  protected readonly avatar = avatar;\n  protected readonly removed = signal(false);\n}\n"
+    },
+    {
+      "path": "chip-sizes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbChipComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-chip-sizes',\n  imports: [HbChipComponent],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-2\">\n      <span hb-chip hbType=\"outline\" hbSize=\"xs\">xs</span>\n      <span hb-chip hbType=\"outline\" hbSize=\"sm\">sm</span>\n      <span hb-chip hbType=\"outline\" hbSize=\"md\">md</span>\n      <span hb-chip hbType=\"outline\" hbSize=\"lg\">lg</span>\n      <span hb-chip hbType=\"outline\" hbSize=\"xl\">xl</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoChipSizesComponent {}\n"
+    },
+    {
+      "path": "chip-types.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbChipComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-chip-types',\n  imports: [HbChipComponent],\n  template: `\n    <div class=\"flex flex-wrap items-center gap-2\">\n      <span hb-chip>Default</span>\n      <span hb-chip hbType=\"secondary\">Secondary</span>\n      <span hb-chip hbType=\"outline\">Outline</span>\n      <span hb-chip hbType=\"success\">Success</span>\n      <span hb-chip hbType=\"warning\">Warning</span>\n      <span hb-chip hbType=\"destructive\">Destructive</span>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoChipTypesComponent {}\n"
+    }
+  ]
+}

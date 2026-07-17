@@ -1,0 +1,29 @@
+{
+  "name": "aspect-ratio",
+  "type": "registry:component",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "aspect-ratio/aspect-ratio.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\n\n@Component({\n  selector: 'hb-aspect-ratio, [hb-aspect-ratio]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[style.aspectRatio]': 'hbRatio()',\n    '[attr.data-slot]': \"'aspect-ratio'\",\n  },\n  exportAs: 'hbAspectRatio',\n})\nexport class HbAspectRatioComponent {\n  readonly hbRatio = input<number>(1);\n  readonly class = input<ClassValue>('');\n\n  protected readonly classes = computed(() =>\n    cn(\n      'relative block w-full overflow-hidden [&>*]:size-full [&>img]:object-cover [&>video]:object-cover',\n      this.class(),\n    ),\n  );\n}\n"
+    },
+    {
+      "path": "aspect-ratio/index.ts",
+      "content": "export * from './aspect-ratio.component';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "aspect-ratio-media.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAspectRatioComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-aspect-ratio-media',\n  imports: [HbAspectRatioComponent],\n  template: `\n    <div hb-aspect-ratio [hbRatio]=\"16 / 9\" class=\"max-w-md rounded-md border border-border\">\n      <img [src]=\"image\" alt=\"Autumn forest\" />\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAspectRatioMediaComponent {\n  protected readonly image =\n    'data:image/svg+xml,' +\n    encodeURIComponent(\n      \"<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>\" +\n        \"<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>\" +\n        \"<stop offset='0' stop-color='#A64B2A'/><stop offset='1' stop-color='#6B7A55'/>\" +\n        '</linearGradient></defs>' +\n        \"<rect width='240' height='240' fill='url(#g)'/></svg>\",\n    );\n}\n"
+    },
+    {
+      "path": "aspect-ratio-ratios.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbAspectRatioComponent } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-aspect-ratio-ratios',\n  imports: [HbAspectRatioComponent],\n  template: `\n    <div class=\"grid w-full max-w-xl grid-cols-2 gap-4 sm:grid-cols-4\">\n      <div hb-aspect-ratio [hbRatio]=\"1\" class=\"rounded-md border border-border bg-muted\">\n        <span class=\"flex items-center justify-center font-mono text-xs text-muted-foreground\">\n          1 / 1\n        </span>\n      </div>\n      <div hb-aspect-ratio [hbRatio]=\"4 / 3\" class=\"rounded-md border border-border bg-muted\">\n        <span class=\"flex items-center justify-center font-mono text-xs text-muted-foreground\">\n          4 / 3\n        </span>\n      </div>\n      <div hb-aspect-ratio [hbRatio]=\"16 / 9\" class=\"rounded-md border border-border bg-muted\">\n        <span class=\"flex items-center justify-center font-mono text-xs text-muted-foreground\">\n          16 / 9\n        </span>\n      </div>\n      <div hb-aspect-ratio [hbRatio]=\"3 / 4\" class=\"rounded-md border border-border bg-muted\">\n        <span class=\"flex items-center justify-center font-mono text-xs text-muted-foreground\">\n          3 / 4\n        </span>\n      </div>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoAspectRatioRatiosComponent {}\n"
+    }
+  ]
+}

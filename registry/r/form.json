@@ -1,0 +1,33 @@
+{
+  "name": "form",
+  "type": "registry:component",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "form/form.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\n\n@Component({\n  selector: 'form[hb-form], hb-form',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: { '[class]': 'classes()', '[attr.data-slot]': \"'form'\" },\n  exportAs: 'hbForm',\n})\nexport class HbFormComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn('flex flex-col gap-6', this.class()));\n}\n"
+    },
+    {
+      "path": "form/index.ts",
+      "content": "export * from './form.component';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "form-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component, signal } from '@angular/core';\n\nimport { HbButtonComponent, HbFieldImports, HbFormComponent, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-form-basic',\n  imports: [HbFormComponent, HbFieldImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <form hb-form class=\"w-full max-w-sm\" (submit)=\"onSubmit($event)\">\n      <hb-field>\n        <label hb-field-label hbRequired>Photo title</label>\n        <input hb-input name=\"title\" placeholder=\"Autumn in the Black Forest\" />\n        <hb-field-description>A short title for your photo.</hb-field-description>\n      </hb-field>\n\n      <hb-field>\n        <label hb-field-label hbRequired>City</label>\n        <input hb-input name=\"city\" placeholder=\"Freiburg\" />\n      </hb-field>\n\n      <div class=\"flex items-center justify-end gap-2\">\n        <button hb-button hbType=\"ghost\" type=\"reset\">Reset</button>\n        <button hb-button type=\"submit\">Save</button>\n      </div>\n\n      <p class=\"font-mono text-[12px] text-muted-foreground\">{{ status() }}</p>\n    </form>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoFormBasicComponent {\n  protected readonly status = signal('Awaiting submission.');\n\n  protected onSubmit(event: Event): void {\n    event.preventDefault();\n    const data = new FormData(event.target as HTMLFormElement);\n    this.status.set('Submitted: ' + (data.get('title') || '—'));\n  }\n}\n"
+    },
+    {
+      "path": "form-element.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbFieldImports, HbFormComponent, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-form-element',\n  imports: [HbFormComponent, HbFieldImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <hb-form class=\"w-full max-w-sm gap-3\">\n      <hb-field hbOrientation=\"horizontal\">\n        <label hb-field-label>Album</label>\n        <input hb-input placeholder=\"Herbst\" />\n      </hb-field>\n\n      <hb-field hbOrientation=\"horizontal\">\n        <label hb-field-label>City</label>\n        <input hb-input placeholder=\"Freiburg\" />\n      </hb-field>\n\n      <button hb-button hbType=\"outline\" class=\"self-start\">Locate</button>\n    </hb-form>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoFormElementComponent {}\n"
+    },
+    {
+      "path": "form-grouped.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbFieldImports, HbFormComponent, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-form-grouped',\n  imports: [HbFormComponent, HbFieldImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <form hb-form class=\"w-full max-w-md\" (submit)=\"$event.preventDefault()\">\n      <fieldset hb-field-set>\n        <legend hb-field-legend>Photo details</legend>\n\n        <hb-field-group [hbColumns]=\"2\">\n          <hb-field>\n            <label hb-field-label>City</label>\n            <input hb-input placeholder=\"Freiburg\" />\n          </hb-field>\n          <hb-field>\n            <label hb-field-label>Season</label>\n            <input hb-input placeholder=\"Autumn\" />\n          </hb-field>\n        </hb-field-group>\n\n        <hb-field-separator />\n\n        <hb-field hbInvalid>\n          <label hb-field-label hbRequired>Caption</label>\n          <input hb-input aria-invalid=\"true\" placeholder=\"A few words about the photo…\" />\n          <hb-field-error [hbErrors]=\"['A caption is required.']\" />\n        </hb-field>\n      </fieldset>\n\n      <button hb-button type=\"submit\">Save photo</button>\n    </form>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoFormGroupedComponent {}\n"
+    }
+  ]
+}

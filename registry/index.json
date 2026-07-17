@@ -1,0 +1,907 @@
+{
+  "version": "0.0.1",
+  "items": [
+    {
+      "name": "accordion",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:component",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "attachment",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority",
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "menu"
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "block-ui",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "menu"
+      ]
+    },
+    {
+      "name": "bubble",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "tooltip"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "core"
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "core"
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:component",
+      "dependencies": [
+        "date-fns",
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "date-fns-tz",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "embla-carousel",
+        "embla-carousel-autoplay",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:component",
+      "dependencies": [
+        "chart.js",
+        "ng2-charts"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "shiki",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "code-preview",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button",
+        "code-block"
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "select"
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:component",
+      "dependencies": [
+        "date-fns"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "calendar"
+      ]
+    },
+    {
+      "name": "divider",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "form",
+      "type": "registry:component",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "gallery",
+      "type": "registry:component",
+      "dependencies": [
+        "embla-carousel",
+        "embla-carousel-autoplay",
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "inplace",
+      "type": "registry:component",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "layout",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "marker",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "spinner"
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "message",
+      "type": "registry:component",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "avatar"
+      ]
+    },
+    {
+      "name": "message-scroller",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "meter-group",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "org-chart",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "checkbox"
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "segmented",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "speed-dial",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button",
+        "tooltip"
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "checkbox",
+        "popover",
+        "radio",
+        "kbd",
+        "spinner"
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "button",
+        "spinner"
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "kbd"
+      ]
+    },
+    {
+      "name": "tree",
+      "type": "registry:component",
+      "dependencies": [
+        "@ng-icons/core",
+        "@ng-icons/phosphor-icons",
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils",
+        "checkbox",
+        "input",
+        "skeleton",
+        "spinner"
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:component",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "devDependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "core",
+      "type": "registry:lib",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "theme",
+      "type": "registry:lib",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": []
+    }
+  ]
+}

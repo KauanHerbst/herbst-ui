@@ -1,0 +1,53 @@
+{
+  "name": "inplace",
+  "type": "registry:component",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "inplace/index.ts",
+      "content": "export * from './inplace.component';\nexport * from './inplace.variants';\nexport * from './inplace-display.directive';\nexport * from './inplace-content.directive';\nexport * from './inplace-closer.directive';\nexport * from './inplace.imports';\n"
+    },
+    {
+      "path": "inplace/inplace-closer.directive.ts",
+      "content": "import { Directive, inject } from '@angular/core';\n\nimport { HbInplaceComponent } from './inplace.component';\n\n@Directive({\n  selector: '[hbInplaceCloser]',\n  host: {\n    '[attr.data-slot]': \"'inplace-closer'\",\n    '(click)': 'onClick()',\n  },\n  exportAs: 'hbInplaceCloser',\n})\nexport class HbInplaceCloserDirective {\n  private readonly inplace = inject(HbInplaceComponent);\n\n  protected onClick(): void {\n    this.inplace.deactivate();\n  }\n}\n"
+    },
+    {
+      "path": "inplace/inplace-content.directive.ts",
+      "content": "import { Directive } from '@angular/core';\n\n@Directive({\n  selector: 'ng-template[hbInplaceContent]',\n})\nexport class HbInplaceContentDirective {}\n"
+    },
+    {
+      "path": "inplace/inplace-display.directive.ts",
+      "content": "import { Directive } from '@angular/core';\n\n@Directive({\n  selector: 'ng-template[hbInplaceDisplay]',\n})\nexport class HbInplaceDisplayDirective {}\n"
+    },
+    {
+      "path": "inplace/inplace.component.ts",
+      "content": "import { NgTemplateOutlet } from '@angular/common';\nimport {\n  booleanAttribute,\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  contentChild,\n  input,\n  model,\n  output,\n  TemplateRef,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { HbInplaceContentDirective } from './inplace-content.directive';\nimport { HbInplaceDisplayDirective } from './inplace-display.directive';\nimport { inplaceClass, inplaceContentClass, inplaceDisplayClass } from './inplace.variants';\n\n@Component({\n  selector: 'hb-inplace',\n  imports: [NgTemplateOutlet],\n  template: `\n    @if (!hbActive()) {\n      <div\n        [class]=\"displayClass\"\n        data-slot=\"inplace-display\"\n        [attr.role]=\"interactive() ? 'button' : null\"\n        [attr.tabindex]=\"interactive() ? 0 : null\"\n        [attr.data-disabled]=\"hbDisabled() || null\"\n        [attr.data-static]=\"staticDisplay() || null\"\n        (click)=\"onDisplayClick()\"\n        (keydown.enter)=\"onKey($event)\"\n        (keydown.space)=\"onKey($event)\"\n      >\n        @if (displayTpl(); as tpl) {\n          <ng-container [ngTemplateOutlet]=\"tpl\" />\n        }\n      </div>\n    } @else {\n      <div [class]=\"contentClass\" data-slot=\"inplace-content\">\n        @if (contentTpl(); as tpl) {\n          <ng-container [ngTemplateOutlet]=\"tpl\" />\n        }\n      </div>\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'inplace'\",\n    '[attr.data-active]': 'hbActive() || null',\n    '[attr.data-disabled]': 'hbDisabled() || null',\n  },\n  exportAs: 'hbInplace',\n})\nexport class HbInplaceComponent {\n  readonly hbActive = model(false);\n  readonly hbDisabled = input(false, { transform: booleanAttribute });\n  readonly hbPreventClick = input(false, { transform: booleanAttribute });\n  readonly class = input<ClassValue>('');\n\n  readonly hbActivate = output<void>();\n  readonly hbDeactivate = output<void>();\n\n  protected readonly displayTpl = contentChild(HbInplaceDisplayDirective, { read: TemplateRef });\n  protected readonly contentTpl = contentChild(HbInplaceContentDirective, { read: TemplateRef });\n\n  readonly active = this.hbActive.asReadonly();\n\n  protected readonly displayClass = inplaceDisplayClass;\n  protected readonly contentClass = inplaceContentClass;\n  protected readonly interactive = computed(() => !this.hbDisabled() && !this.hbPreventClick());\n  protected readonly staticDisplay = computed(() => this.hbPreventClick() && !this.hbDisabled());\n\n  protected readonly classes = computed(() => cn(inplaceClass, this.class()));\n\n  activate(): void {\n    if (this.hbDisabled() || this.hbActive()) return;\n    this.hbActive.set(true);\n    this.hbActivate.emit();\n  }\n  deactivate(): void {\n    if (!this.hbActive()) return;\n    this.hbActive.set(false);\n    this.hbDeactivate.emit();\n  }\n  toggle(): void {\n    this.hbActive() ? this.deactivate() : this.activate();\n  }\n\n  protected onDisplayClick(): void {\n    if (this.interactive()) this.activate();\n  }\n  protected onKey(event: Event): void {\n    if (!this.interactive()) return;\n    event.preventDefault();\n    this.activate();\n  }\n}\n"
+    },
+    {
+      "path": "inplace/inplace.imports.ts",
+      "content": "import { HbInplaceCloserDirective } from './inplace-closer.directive';\nimport { HbInplaceContentDirective } from './inplace-content.directive';\nimport { HbInplaceDisplayDirective } from './inplace-display.directive';\nimport { HbInplaceComponent } from './inplace.component';\n\nexport const HbInplaceImports = [\n  HbInplaceComponent,\n  HbInplaceDisplayDirective,\n  HbInplaceContentDirective,\n  HbInplaceCloserDirective,\n] as const;\n"
+    },
+    {
+      "path": "inplace/inplace.variants.ts",
+      "content": "export const inplaceClass = 'inline-flex w-full flex-col text-sm';\nexport const inplaceDisplayClass =\n  'inline-flex w-fit cursor-pointer items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[disabled]:pointer-events-none data-[disabled]:cursor-default data-[disabled]:opacity-50 data-[static]:cursor-default data-[static]:hover:bg-transparent';\nexport const inplaceContentClass = 'w-full';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "inplace-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component, signal } from '@angular/core';\n\nimport { HbButtonComponent, HbInplaceImports, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-inplace-basic',\n  imports: [HbInplaceImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <hb-inplace class=\"w-full max-w-sm\">\n      <ng-template hbInplaceDisplay>\n        <span class=\"text-sm\">\n          Photo title:\n          <span class=\"font-medium\">{{ value() }}</span>\n          <span class=\"text-muted-foreground\"> — click to edit</span>\n        </span>\n      </ng-template>\n\n      <ng-template hbInplaceContent>\n        <div class=\"flex items-center gap-2\">\n          <input hb-input #box [value]=\"value()\" placeholder=\"Autumn morning\" />\n          <button hb-button hbInplaceCloser (click)=\"value.set(box.value)\">Save</button>\n        </div>\n      </ng-template>\n    </hb-inplace>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoInplaceBasicComponent {\n  protected readonly value = signal('Autumn morning');\n}\n"
+    },
+    {
+      "path": "inplace-controlled.ts",
+      "content": "import { ChangeDetectionStrategy, Component, signal } from '@angular/core';\n\nimport { HbButtonComponent, HbInplaceImports, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-inplace-controlled',\n  imports: [HbInplaceImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <div class=\"flex w-full max-w-sm flex-col gap-2\">\n      <div class=\"flex items-center gap-2\">\n        <button hb-button hbType=\"secondary\" (click)=\"active.set(!active())\">\n          {{ active() ? 'Collapse' : 'Edit' }}\n        </button>\n        <span class=\"font-mono text-[12px] text-muted-foreground\">{{ log() }}</span>\n      </div>\n\n      <hb-inplace\n        [(hbActive)]=\"active\"\n        (hbActivate)=\"log.set('activated')\"\n        (hbDeactivate)=\"log.set('deactivated')\"\n      >\n        <ng-template hbInplaceDisplay>\n          <span class=\"text-sm\">City: <span class=\"font-medium\">Freiburg</span></span>\n        </ng-template>\n        <ng-template hbInplaceContent>\n          <div class=\"flex items-center gap-2\">\n            <input hb-input value=\"Freiburg\" />\n            <button hb-button hbType=\"outline\" hbInplaceCloser>Done</button>\n          </div>\n        </ng-template>\n      </hb-inplace>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoInplaceControlledComponent {\n  protected readonly active = signal(false);\n  protected readonly log = signal('idle');\n}\n"
+    },
+    {
+      "path": "inplace-states.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbInplaceImports, HbInputDirective } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-inplace-states',\n  imports: [HbInplaceImports, HbInputDirective, HbButtonComponent],\n  template: `\n    <div class=\"flex w-full max-w-sm flex-col gap-4\">\n      <hb-inplace hbDisabled>\n        <ng-template hbInplaceDisplay>\n          <span class=\"text-sm text-muted-foreground\">Locked field — clicking does nothing</span>\n        </ng-template>\n        <ng-template hbInplaceContent>\n          <input hb-input value=\"never reached\" />\n        </ng-template>\n      </hb-inplace>\n\n      <hb-inplace hbPreventClick #ref=\"hbInplace\">\n        <ng-template hbInplaceDisplay>\n          <div class=\"flex items-center gap-2\">\n            <span class=\"text-sm\">Notes: oak leaves turning amber</span>\n            <button hb-button hbType=\"ghost\" hbSize=\"sm\" (click)=\"ref.activate()\">Edit</button>\n          </div>\n        </ng-template>\n        <ng-template hbInplaceContent>\n          <div class=\"flex items-center gap-2\">\n            <input hb-input value=\"oak leaves turning amber\" />\n            <button hb-button hbType=\"outline\" hbInplaceCloser>Close</button>\n          </div>\n        </ng-template>\n      </hb-inplace>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoInplaceStatesComponent {}\n"
+    }
+  ]
+}

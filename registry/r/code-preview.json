@@ -1,0 +1,33 @@
+{
+  "name": "code-preview",
+  "type": "registry:component",
+  "dependencies": [
+    "@ng-icons/core",
+    "@ng-icons/phosphor-icons",
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "code-block"
+  ],
+  "files": [
+    {
+      "path": "code-preview/code-preview.component.ts",
+      "content": "import { Clipboard } from '@angular/cdk/clipboard';\nimport {\n  booleanAttribute,\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  model,\n  signal,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorCheck, phosphorCode, phosphorCopy } from '@ng-icons/phosphor-icons/regular';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { HbButtonComponent } from '{{alias}}/button';\nimport { HbCodeBlockComponent, type HbCodeLanguage } from '{{alias}}/code-block';\nimport {\n  codePreviewSurfaceVariants,\n  codePreviewToolbarVariants,\n  codePreviewVariants,\n  type HbCodePreviewAlign,\n} from './code-preview.variants';\n\n@Component({\n  selector: 'hb-code-preview',\n  imports: [NgIcon, HbButtonComponent, HbCodeBlockComponent],\n  viewProviders: [provideIcons({ phosphorCode, phosphorCopy, phosphorCheck })],\n  template: `\n    <div [class]=\"surfaceClasses()\">\n      <ng-content />\n    </div>\n\n    <div [class]=\"toolbarClasses\">\n      <button\n        hb-button\n        hbType=\"ghost\"\n        hbSize=\"sm\"\n        class=\"gap-1.5 font-mono text-[0.6875rem] tracking-[0.06em] text-muted-foreground uppercase\"\n        (click)=\"toggle()\"\n      >\n        <ng-icon name=\"phosphorCode\" />\n        {{ hbExpanded() ? 'Hide code' : 'Show code' }}\n      </button>\n\n      <button\n        hb-button\n        hbType=\"ghost\"\n        hbSize=\"icon\"\n        class=\"size-7\"\n        [attr.aria-label]=\"copied() ? 'Copied' : 'Copy'\"\n        (click)=\"copy()\"\n      >\n        <ng-icon [name]=\"copied() ? 'phosphorCheck' : 'phosphorCopy'\" [class.text-success]=\"copied()\" />\n      </button>\n    </div>\n\n    @if (hbExpanded()) {\n      <hb-code-block\n        [hbCode]=\"hbCode()\"\n        [hbLanguage]=\"hbLanguage()\"\n        [hbLineNumbers]=\"hbLineNumbers()\"\n        [hbShowHeader]=\"false\"\n        [hbCopyButton]=\"false\"\n        class=\"rounded-none border-0 border-t border-border shadow-none\"\n      />\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'code-preview'\",\n  },\n  exportAs: 'hbCodePreview',\n})\nexport class HbCodePreviewComponent {\n  private readonly clipboard = inject(Clipboard);\n\n  readonly hbCode = input<string>('');\n  readonly hbLanguage = input<HbCodeLanguage>('angular-ts');\n  readonly hbLineNumbers = input(false, { transform: booleanAttribute });\n  readonly hbAlign = input<HbCodePreviewAlign>('center');\n  readonly hbExpanded = model(false);\n  readonly class = input<ClassValue>('');\n\n  protected readonly copied = signal(false);\n\n  protected readonly classes = computed(() => cn(codePreviewVariants(), this.class()));\n  protected readonly toolbarClasses = codePreviewToolbarVariants();\n  protected readonly surfaceClasses = computed(() =>\n    codePreviewSurfaceVariants({ align: this.hbAlign() }),\n  );\n\n  private resetTimer?: ReturnType<typeof setTimeout>;\n\n  protected toggle(): void {\n    this.hbExpanded.update((value) => !value);\n  }\n\n  protected copy(): void {\n    this.clipboard.copy(this.hbCode());\n    this.copied.set(true);\n    clearTimeout(this.resetTimer);\n    this.resetTimer = setTimeout(() => this.copied.set(false), 2000);\n  }\n}\n"
+    },
+    {
+      "path": "code-preview/code-preview.imports.ts",
+      "content": "import { HbCodePreviewComponent } from './code-preview.component';\n\nexport const HbCodePreviewImports = [HbCodePreviewComponent] as const;\n"
+    },
+    {
+      "path": "code-preview/code-preview.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const codePreviewVariants = cva(\n  cn('block overflow-hidden rounded-md border border-border bg-card shadow-xs'),\n);\n\nexport const codePreviewSurfaceVariants = cva(\n  cn('flex min-h-[9rem] flex-wrap items-center gap-4 p-6'),\n  {\n    variants: {\n      align: {\n        center: 'justify-center',\n        start: 'justify-start',\n      },\n    },\n    defaultVariants: { align: 'center' },\n  },\n);\n\nexport const codePreviewToolbarVariants = cva(\n  cn('flex items-center justify-between gap-2 border-t border-border bg-muted/40 px-2 py-1'),\n);\n\nexport type HbCodePreviewAlign = NonNullable<\n  VariantProps<typeof codePreviewSurfaceVariants>['align']\n>;\n"
+    },
+    {
+      "path": "code-preview/index.ts",
+      "content": "export * from './code-preview.component';\nexport * from './code-preview.variants';\nexport * from './code-preview.imports';\n"
+    }
+  ]
+}

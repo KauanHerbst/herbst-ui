@@ -1,0 +1,52 @@
+{
+  "name": "marker",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils",
+    "spinner"
+  ],
+  "files": [
+    {
+      "path": "marker/index.ts",
+      "content": "export * from './marker.component';\nexport * from './marker-icon.component';\nexport * from './marker-content.component';\nexport * from './marker.variants';\nexport * from './marker.imports';\n"
+    },
+    {
+      "path": "marker/marker-content.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { markerContentVariants } from './marker.variants';\n\n@Component({\n  selector: 'hb-marker-content, [hb-marker-content]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'marker-content'\",\n  },\n  exportAs: 'hbMarkerContent',\n})\nexport class HbMarkerContentComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(markerContentVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "marker/marker-icon.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { markerIconVariants } from './marker.variants';\n\n@Component({\n  selector: 'hb-marker-icon, [hb-marker-icon]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'marker-icon'\",\n    'aria-hidden': 'true',\n  },\n  exportAs: 'hbMarkerIcon',\n})\nexport class HbMarkerIconComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(markerIconVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "marker/marker.component.ts",
+      "content": "import {\n  booleanAttribute,\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { HbSpinnerComponent } from '{{alias}}/spinner';\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  markerContentVariants,\n  markerLineVariants,\n  markerVariants,\n  type HbMarkerVariant,\n} from './marker.variants';\n\n@Component({\n  selector: 'hb-marker, a[hb-marker], button[hb-marker], [hb-marker]',\n  imports: [HbSpinnerComponent],\n  template: `\n    @if (isSeparator()) {\n      <span [class]=\"lineClasses\" aria-hidden=\"true\"></span>\n    }\n\n    @if (hbLoading()) {\n      <hb-spinner hbSize=\"xs\" [hbLabel]=\"hbLoadingLabel()\" class=\"shrink-0\" />\n    } @else {\n      <ng-content select=\"hb-marker-icon, [hb-marker-icon]\" />\n    }\n\n    <span [class]=\"contentClasses()\">\n      <ng-content select=\"hb-marker-content, [hb-marker-content]\" />\n      <ng-content />\n    </span>\n\n    @if (isSeparator()) {\n      <span [class]=\"lineClasses\" aria-hidden=\"true\"></span>\n    }\n  `,\n  styles: `\n    @keyframes hb-marker-shimmer {\n      from {\n        background-position: 200% 0;\n      }\n      to {\n        background-position: -200% 0;\n      }\n    }\n    .hb-marker-shimmer {\n      background-image: linear-gradient(\n        90deg,\n        currentColor 0%,\n        currentColor 35%,\n        color-mix(in oklab, currentColor 25%, transparent) 50%,\n        currentColor 65%,\n        currentColor 100%\n      );\n      background-size: 200% 100%;\n      -webkit-background-clip: text;\n      background-clip: text;\n      -webkit-text-fill-color: transparent;\n      animation: hb-marker-shimmer 1.6s linear infinite;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'marker'\",\n    '[attr.data-variant]': 'hbVariant()',\n    '[attr.role]': 'roleAttr()',\n    '[attr.aria-live]': \"hbLoading() ? 'polite' : null\",\n    '[attr.aria-busy]': \"hbLoading() ? 'true' : null\",\n  },\n  exportAs: 'hbMarker',\n})\nexport class HbMarkerComponent {\n  readonly hbVariant = input<HbMarkerVariant>('default');\n  readonly hbLoading = input(false, { transform: booleanAttribute });\n  readonly hbLoadingLabel = input('Loading');\n  readonly hbShimmer = input(false, { transform: booleanAttribute });\n  readonly hbRole = input<string | null>(null);\n  readonly class = input<ClassValue>('');\n\n  protected readonly isSeparator = computed(() => this.hbVariant() === 'separator');\n  protected readonly lineClasses = markerLineVariants();\n  protected readonly classes = computed(() =>\n    cn(markerVariants({ variant: this.hbVariant() }), this.class()),\n  );\n  protected readonly contentClasses = computed(() =>\n    cn(markerContentVariants(), this.hbShimmer() && 'hb-marker-shimmer'),\n  );\n  protected readonly roleAttr = computed(() => (this.hbLoading() ? 'status' : this.hbRole()));\n}\n"
+    },
+    {
+      "path": "marker/marker.imports.ts",
+      "content": "import { HbMarkerComponent } from './marker.component';\nimport { HbMarkerContentComponent } from './marker-content.component';\nimport { HbMarkerIconComponent } from './marker-icon.component';\n\nexport const HbMarkerImports = [\n  HbMarkerComponent,\n  HbMarkerIconComponent,\n  HbMarkerContentComponent,\n] as const;\n"
+    },
+    {
+      "path": "marker/marker.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nexport const markerVariants = cva(\n  'inline-flex items-center gap-2 text-sm text-muted-foreground outline-none ' +\n    '[&:where(a,button)]:cursor-pointer [&:where(a,button)]:rounded-sm [&:where(a,button)]:transition-colors ' +\n    '[&:where(a,button)]:hover:text-foreground ' +\n    '[&:where(a,button)]:focus-visible:ring-2 [&:where(a,button)]:focus-visible:ring-ring [&:where(a,button)]:focus-visible:ring-offset-2 [&:where(a,button)]:focus-visible:ring-offset-background',\n  {\n    variants: {\n      variant: {\n        default: '',\n        border: 'w-full border-b border-border pb-2',\n        separator: 'flex w-full items-center gap-3 text-xs',\n      },\n    },\n    defaultVariants: { variant: 'default' },\n  },\n);\n\nexport const markerIconVariants = cva(\n  'inline-flex shrink-0 items-center justify-center text-current [&_svg]:pointer-events-none [&_svg]:size-4',\n);\n\nexport const markerContentVariants = cva('min-w-0');\n\nexport const markerLineVariants = cva('h-px flex-1 bg-border');\n\nexport type HbMarkerVariant = NonNullable<VariantProps<typeof markerVariants>['variant']>;\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "marker-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbMarkerImports } from '@herbst/ui';\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorArrowRight, phosphorLeaf } from '@ng-icons/phosphor-icons/regular';\n\n@Component({\n  selector: 'hb-demo-marker-basic',\n  imports: [HbMarkerImports, NgIcon],\n  viewProviders: [provideIcons({ phosphorLeaf, phosphorArrowRight })],\n  template: `\n    <div class=\"flex flex-col items-start gap-3\">\n      <hb-marker>\n        <hb-marker-icon><ng-icon name=\"phosphorLeaf\" /></hb-marker-icon>\n        <hb-marker-content>Oak leaves</hb-marker-content>\n      </hb-marker>\n\n      <a hb-marker href=\"#\" (click)=\"$event.preventDefault()\">\n        <hb-marker-icon><ng-icon name=\"phosphorArrowRight\" /></hb-marker-icon>\n        View photo\n      </a>\n\n      <button hb-marker type=\"button\">\n        <hb-marker-icon><ng-icon name=\"phosphorLeaf\" /></hb-marker-icon>\n        Add to album\n      </button>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoMarkerBasicComponent {}\n"
+    },
+    {
+      "path": "marker-loading.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbMarkerImports } from '@herbst/ui';\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorLeaf } from '@ng-icons/phosphor-icons/regular';\n\n@Component({\n  selector: 'hb-demo-marker-loading',\n  imports: [HbMarkerImports, NgIcon],\n  viewProviders: [provideIcons({ phosphorLeaf })],\n  template: `\n    <div class=\"flex flex-col items-start gap-3\">\n      <hb-marker hbLoading hbLoadingLabel=\"Uploading photos\"> Uploading photos… </hb-marker>\n\n      <hb-marker hbShimmer>\n        <hb-marker-icon><ng-icon name=\"phosphorLeaf\" /></hb-marker-icon>\n        Syncing Herbst\n      </hb-marker>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoMarkerLoadingComponent {}\n"
+    },
+    {
+      "path": "marker-variants.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbMarkerImports } from '@herbst/ui';\nimport { NgIcon, provideIcons } from '@ng-icons/core';\nimport { phosphorTag } from '@ng-icons/phosphor-icons/regular';\n\n@Component({\n  selector: 'hb-demo-marker-variants',\n  imports: [HbMarkerImports, NgIcon],\n  viewProviders: [provideIcons({ phosphorTag })],\n  template: `\n    <div class=\"flex w-full max-w-sm flex-col gap-5\">\n      <hb-marker hbVariant=\"border\">\n        <hb-marker-icon><ng-icon name=\"phosphorTag\" /></hb-marker-icon>\n        <hb-marker-content class=\"font-medium text-foreground\">Black Forest</hb-marker-content>\n      </hb-marker>\n\n      <hb-marker hbVariant=\"separator\">Chapter II</hb-marker>\n\n      <hb-marker hbVariant=\"separator\" hbRole=\"separator\">\n        <hb-marker-icon><ng-icon name=\"phosphorTag\" /></hb-marker-icon>\n        Field notes\n      </hb-marker>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoMarkerVariantsComponent {}\n"
+    }
+  ]
+}

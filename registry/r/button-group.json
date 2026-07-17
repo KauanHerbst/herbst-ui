@@ -1,0 +1,56 @@
+{
+  "name": "button-group",
+  "type": "registry:component",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [
+    "utils",
+    "core"
+  ],
+  "files": [
+    {
+      "path": "button-group/button-group-separator.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { HB_BUTTON_GROUP } from '{{alias}}/core';\nimport {\n  buttonGroupSeparatorVariants,\n  type HbButtonGroupSeparatorOrientation,\n} from './button-group.variants';\n\n@Component({\n  selector: 'hb-button-group-separator, [hb-button-group-separator]',\n  template: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    role: 'separator',\n    '[attr.aria-orientation]': 'effectiveOrientation()',\n    '[attr.data-slot]': \"'button-group-separator'\",\n  },\n  exportAs: 'hbButtonGroupSeparator',\n})\nexport class HbButtonGroupSeparatorComponent {\n  private readonly group = inject(HB_BUTTON_GROUP, { optional: true });\n\n  readonly hbOrientation = input<HbButtonGroupSeparatorOrientation | undefined>(undefined);\n  readonly class = input<ClassValue>('');\n\n  protected readonly effectiveOrientation = computed<HbButtonGroupSeparatorOrientation>(() => {\n    const own = this.hbOrientation();\n    if (own) return own;\n    const groupOrientation = this.group?.orientation() ?? 'horizontal';\n    return groupOrientation === 'horizontal' ? 'vertical' : 'horizontal';\n  });\n\n  protected readonly classes = computed(() =>\n    cn(buttonGroupSeparatorVariants({ orientation: this.effectiveOrientation() }), this.class()),\n  );\n}\n"
+    },
+    {
+      "path": "button-group/button-group-text.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport { buttonGroupTextVariants } from './button-group.variants';\n\n@Component({\n  selector: 'hb-button-group-text, [hb-button-group-text]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  host: {\n    '[class]': 'classes()',\n    '[attr.data-slot]': \"'button-group-text'\",\n  },\n  exportAs: 'hbButtonGroupText',\n})\nexport class HbButtonGroupTextComponent {\n  readonly class = input<ClassValue>('');\n  protected readonly classes = computed(() => cn(buttonGroupTextVariants(), this.class()));\n}\n"
+    },
+    {
+      "path": "button-group/button-group.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  ViewEncapsulation,\n} from '@angular/core';\n\nimport { cn, type ClassValue } from '{{alias}}/utils';\nimport {\n  HB_BUTTON_GROUP,\n  type HbButtonGroupContext,\n  type HbButtonGroupOrientation,\n  type HbButtonGroupSize,\n} from '{{alias}}/core';\nimport { buttonGroupVariants } from './button-group.variants';\n\n@Component({\n  selector: 'hb-button-group, [hb-button-group]',\n  template: `<ng-content />`,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  encapsulation: ViewEncapsulation.None,\n  providers: [{ provide: HB_BUTTON_GROUP, useExisting: HbButtonGroupComponent }],\n  host: {\n    '[class]': 'classes()',\n    role: 'group',\n    '[attr.data-slot]': \"'button-group'\",\n    '[attr.data-orientation]': 'hbOrientation()',\n  },\n  exportAs: 'hbButtonGroup',\n})\nexport class HbButtonGroupComponent implements HbButtonGroupContext {\n  readonly hbOrientation = input<HbButtonGroupOrientation>('horizontal');\n  readonly hbSize = input<HbButtonGroupSize | null>(null);\n  readonly class = input<ClassValue>('');\n\n  readonly size = this.hbSize;\n  readonly orientation = this.hbOrientation;\n\n  protected readonly classes = computed(() =>\n    cn(buttonGroupVariants({ orientation: this.hbOrientation() }), this.class()),\n  );\n}\n"
+    },
+    {
+      "path": "button-group/button-group.imports.ts",
+      "content": "import { HbButtonGroupComponent } from './button-group.component';\nimport { HbButtonGroupSeparatorComponent } from './button-group-separator.component';\nimport { HbButtonGroupTextComponent } from './button-group-text.component';\n\nexport const HbButtonGroupImports = [\n  HbButtonGroupComponent,\n  HbButtonGroupSeparatorComponent,\n  HbButtonGroupTextComponent,\n] as const;\n"
+    },
+    {
+      "path": "button-group/button-group.variants.ts",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '{{alias}}/utils';\n\nexport const buttonGroupVariants = cva(\n  cn(\n    'flex w-fit items-stretch',\n    '[&>*]:relative [&>*:focus-within]:z-10 [&>*:hover]:z-10',\n    'has-[>[data-slot=button-group]]:gap-2',\n  ),\n  {\n    variants: {\n      orientation: {\n        horizontal: cn(\n          'flex-row',\n          '[&>*:not([data-slot=button-group]):not(:first-child)]:-ml-px',\n          '[&>*:not([data-slot=button-group]):not(:first-child)]:rounded-l-none',\n          '[&>*:not([data-slot=button-group]):not(:last-child)]:rounded-r-none',\n          '[&>hb-select:not(:first-child)>button]:rounded-l-none',\n          '[&>hb-select:not(:last-child)>button]:rounded-r-none',\n          '[&>hb-combobox:not(:first-child)>div]:rounded-l-none',\n          '[&>hb-combobox:not(:last-child)>div]:rounded-r-none',\n        ),\n        vertical: cn(\n          'flex-col',\n          '[&>*:not([data-slot=button-group]):not(:first-child)]:-mt-px',\n          '[&>*:not([data-slot=button-group]):not(:first-child)]:rounded-t-none',\n          '[&>*:not([data-slot=button-group]):not(:last-child)]:rounded-b-none',\n          '[&>hb-select:not(:first-child)>button]:rounded-t-none',\n          '[&>hb-select:not(:last-child)>button]:rounded-b-none',\n          '[&>hb-combobox:not(:first-child)>div]:rounded-t-none',\n          '[&>hb-combobox:not(:last-child)>div]:rounded-b-none',\n        ),\n      },\n    },\n    defaultVariants: { orientation: 'horizontal' },\n  },\n);\n\nexport const buttonGroupSeparatorVariants = cva('shrink-0 self-stretch bg-border', {\n  variants: {\n    orientation: {\n      vertical: 'w-px',\n      horizontal: 'h-px w-full',\n    },\n  },\n  defaultVariants: { orientation: 'vertical' },\n});\n\nexport const buttonGroupTextVariants = cva(\n  cn(\n    'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md border border-input',\n    'bg-muted px-3 text-sm font-medium text-muted-foreground [&>ng-icon>svg]:size-4',\n  ),\n);\n\nexport type HbButtonGroupSeparatorOrientation = NonNullable<\n  VariantProps<typeof buttonGroupSeparatorVariants>['orientation']\n>;\n"
+    },
+    {
+      "path": "button-group/index.ts",
+      "content": "export * from './button-group.component';\nexport * from './button-group-separator.component';\nexport * from './button-group-text.component';\nexport * from './button-group.variants';\nexport * from './button-group.imports';\n"
+    }
+  ],
+  "demos": [
+    {
+      "path": "button-group-addon.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbButtonGroupImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-button-group-addon',\n  imports: [HbButtonGroupImports, HbButtonComponent],\n  template: `\n    <hb-button-group>\n      <hb-button-group-text>Sort</hb-button-group-text>\n      <button hb-button hbType=\"outline\">Name</button>\n      <button hb-button hbType=\"outline\">Date</button>\n      <hb-button-group-separator />\n      <button hb-button hbType=\"outline\">Size</button>\n    </hb-button-group>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoButtonGroupAddonComponent {}\n"
+    },
+    {
+      "path": "button-group-basic.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbButtonGroupImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-button-group-basic',\n  imports: [HbButtonGroupImports, HbButtonComponent],\n  template: `\n    <hb-button-group>\n      <button hb-button hbType=\"outline\">Day</button>\n      <button hb-button hbType=\"outline\">Week</button>\n      <button hb-button hbType=\"outline\">Month</button>\n    </hb-button-group>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoButtonGroupBasicComponent {}\n"
+    },
+    {
+      "path": "button-group-sizes.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbButtonGroupImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-button-group-sizes',\n  imports: [HbButtonGroupImports, HbButtonComponent],\n  template: `\n    <div class=\"flex flex-col items-start gap-3\">\n      <hb-button-group hbSize=\"sm\">\n        <button hb-button hbType=\"outline\">Day</button>\n        <button hb-button hbType=\"outline\">Week</button>\n        <button hb-button hbType=\"outline\">Month</button>\n      </hb-button-group>\n\n      <hb-button-group hbSize=\"lg\">\n        <button hb-button hbType=\"outline\">Day</button>\n        <button hb-button hbType=\"outline\">Week</button>\n        <button hb-button hbType=\"outline\">Month</button>\n      </hb-button-group>\n    </div>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoButtonGroupSizesComponent {}\n"
+    },
+    {
+      "path": "button-group-vertical.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\nimport { HbButtonComponent, HbButtonGroupImports } from '@herbst/ui';\n\n@Component({\n  selector: 'hb-demo-button-group-vertical',\n  imports: [HbButtonGroupImports, HbButtonComponent],\n  template: `\n    <hb-button-group hbOrientation=\"vertical\">\n      <button hb-button hbType=\"outline\">Press</button>\n      <button hb-button hbType=\"outline\">Catalogue</button>\n      <button hb-button hbType=\"outline\">Archive</button>\n    </hb-button-group>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class HbDemoButtonGroupVerticalComponent {}\n"
+    }
+  ]
+}
