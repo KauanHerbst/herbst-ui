@@ -8,14 +8,14 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { NgIcon } from '@ng-icons/core';
 
 import { HbBadgeImports, HbButtonComponent, HbSegmentedImports } from '@herbst/ui';
 
 import { DocsSearchComponent } from './docs-search.component';
-import { isLocale, LocaleService } from './locale.service';
+import { LocaleService } from './locale.service';
 import { TranslatePipe } from './t.pipe';
 
 @Component({
@@ -86,8 +86,8 @@ import { TranslatePipe } from './t.pipe';
           <hb-segmented
             hbSize="sm"
             [hbValue]="loc.locale()"
-            (hbValueChange)="switchLocale($event)"
-            class="font-mono"
+            (hbValueChange)="loc.switchLocale($event)"
+            class="hidden font-mono md:inline-flex"
             [attr.aria-label]="'a11y.language' | t"
           >
             <hb-segmented-item value="en" label="EN"></hb-segmented-item>
@@ -123,7 +123,6 @@ import { TranslatePipe } from './t.pipe';
 })
 export class DocsHeaderComponent {
   private readonly document = inject(DOCUMENT);
-  private readonly router = inject(Router);
   protected readonly loc = inject(LocaleService);
 
   readonly menu = input(true, { transform: booleanAttribute });
@@ -146,14 +145,5 @@ export class DocsHeaderComponent {
     } catch {
       return;
     }
-  }
-
-  protected switchLocale(next: string): void {
-    if (this.loc.locale() === next || !isLocale(next)) return;
-    if (/^\/(en|pt)(\/|$)/.test(this.router.url)) {
-      this.router.navigateByUrl(this.router.url.replace(/^\/(en|pt)(\/|$)/, `/${next}$2`));
-      return;
-    }
-    this.loc.setLocale(next);
   }
 }

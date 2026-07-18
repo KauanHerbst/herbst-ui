@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { afterNextRender, inject, Injectable, Injector, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DEFAULT_LOCALE, type Locale, MESSAGES } from './i18n';
 
@@ -22,6 +23,7 @@ export function preferredLocale(): Locale {
 @Injectable({ providedIn: 'root' })
 export class LocaleService {
   private readonly document = inject(DOCUMENT);
+  private readonly injector = inject(Injector);
 
   readonly locale = signal<Locale>(DEFAULT_LOCALE);
 
@@ -52,5 +54,15 @@ export class LocaleService {
 
   docsLink(...segments: string[]): unknown[] {
     return ['/', this.locale(), 'docs', ...segments];
+  }
+
+  switchLocale(next: string): void {
+    if (this.locale() === next || !isLocale(next)) return;
+    const router = this.injector.get(Router);
+    if (/^\/(en|pt)(\/|$)/.test(router.url)) {
+      router.navigateByUrl(router.url.replace(/^\/(en|pt)(\/|$)/, `/${next}$2`));
+      return;
+    }
+    this.setLocale(next);
   }
 }
