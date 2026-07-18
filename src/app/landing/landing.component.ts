@@ -122,6 +122,41 @@ import { HbLeavesComponent } from './hb-leaves.component';
         animation: none;
       }
     }
+    .hb-panel {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hb-scrub-block,
+    .hb-scrub-flex {
+      display: none;
+    }
+    @media (min-width: 768px) and (min-height: 700px) {
+      .hb-scrub-block {
+        display: block;
+      }
+      .hb-scrub-flex {
+        display: flex;
+      }
+    }
+    @media (min-width: 1024px) and (min-height: 940px) {
+      .hb-group {
+        display: contents;
+      }
+      .hb-panel-lg {
+        position: sticky;
+        top: 0;
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        overflow: hidden;
+      }
+      .hb-panel-lg > div {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+    }
   `,
 })
 export class Landing {
@@ -165,7 +200,12 @@ export class Landing {
   }
 
   protected onScroll(): void {
-    this.isMobile = window.innerWidth < 768;
+    const scrub = window.innerWidth >= 768 && window.innerHeight >= 700;
+    this.isMobile = !scrub;
+    if (!scrub) {
+      this.heroP.set(0);
+      return;
+    }
     this.heroP.set(Math.min(2, Math.max(0, window.scrollY / window.innerHeight)));
   }
 
