@@ -6,6 +6,8 @@ import { HbSegmentedImports } from './segmented.imports';
 import type { HbSegmentedOption } from './segmented.component';
 import type { HbSegmentedSize } from './segmented.variants';
 
+type View = 'list' | 'grid' | 'board';
+
 @Component({
   imports: [HbSegmentedImports],
   template: `
@@ -18,12 +20,12 @@ import type { HbSegmentedSize } from './segmented.variants';
   `,
 })
 class Host {
-  readonly options = signal<HbSegmentedOption[]>([
+  readonly options = signal<HbSegmentedOption<View>[]>([
     { value: 'list', label: 'List' },
     { value: 'grid', label: 'Grid' },
     { value: 'board', label: 'Board', disabled: true },
   ]);
-  readonly value = signal('');
+  readonly value = signal<View | ''>('');
   readonly size = signal<HbSegmentedSize>('md');
   readonly disabled = signal(false);
 }
@@ -39,11 +41,12 @@ describe('HbSegmentedComponent', () => {
     return { fixture, el, buttons, group: el.querySelector('[role="radiogroup"]') as HTMLElement };
   }
 
-  it('renders a radiogroup with a radio per option and defaults to the first enabled', () => {
+  it('renders a radiogroup with no option checked while the value is empty', () => {
     const { group, buttons, fixture } = render();
     expect(group).toBeTruthy();
     expect(buttons().map((b) => b.textContent?.trim())).toEqual(['List', 'Grid', 'Board']);
-    expect(buttons()[0].getAttribute('aria-checked')).toBe('true');
+    expect(buttons().map((b) => b.getAttribute('aria-checked'))).toEqual(['false', 'false', 'false']);
+    expect(buttons()[0].getAttribute('tabindex')).toBe('0');
     expect(fixture.componentInstance.value()).toBe('');
   });
 

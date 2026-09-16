@@ -24,6 +24,8 @@ import {
   type HbButtonType,
 } from './button.variants';
 
+const ICON_SELECTOR = 'ng-icon, svg, [data-icon]';
+
 @Component({
   selector: 'hb-button, button[hb-button], a[hb-button]',
   imports: [NgIcon],
@@ -41,10 +43,11 @@ import {
     '[attr.data-slot]': "'button'",
     '[attr.data-icon-only]': 'iconOnly() || null',
     '[attr.data-disabled]': 'hbDisabled() || null',
-    '[attr.disabled]': 'isNativeButton() && hbDisabled() ? "" : null',
+    '[attr.disabled]': 'isNativeButton() && inactive() ? "" : null',
     '[attr.role]': 'needsButtonRole() ? "button" : null',
-    '[attr.tabindex]': 'needsButtonRole() ? (hbDisabled() ? "-1" : "0") : null',
-    '[attr.aria-disabled]': 'needsButtonRole() && hbDisabled() || null',
+    '[attr.tabindex]': 'isNativeButton() ? null : inactive() ? "-1" : needsButtonRole() ? "0" : null',
+    '[attr.aria-disabled]': '!isNativeButton() && inactive() || null',
+    '[attr.aria-busy]': 'hbLoading() || null',
   },
   exportAs: 'hbButton',
 })
@@ -66,19 +69,22 @@ export class HbButtonComponent implements OnDestroy {
   private mutationObserver: MutationObserver | null = null;
 
   constructor() {
+    this.host.nativeElement.addEventListener('click', (event: Event) => this.blockInactive(event), {
+      capture: true,
+    });
     afterNextRender(() => {
       if (typeof MutationObserver === 'undefined') return;
 
       const check = () => {
         const el = this.host.nativeElement;
-        const hasIcon = el.querySelector('ng-icon') !== null;
+        const hasIcon = el.querySelector(ICON_SELECTOR) !== null;
         const hasText = Array.from<ChildNode>(el.childNodes).some((node: ChildNode) => {
           if (node.nodeType === Node.TEXT_NODE) {
             return (node.textContent ?? '').trim() !== '';
           }
           if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as HTMLElement;
-            if (element.tagName.toLowerCase() === 'ng-icon') return false;
+            if (element.matches(ICON_SELECTOR)) return false;
             return (element.textContent ?? '').trim() !== '';
           }
           return false;
@@ -129,6 +135,14 @@ export class HbButtonComponent implements OnDestroy {
       this.class(),
     ),
   );
+
+  protected readonly inactive = computed(() => this.hbDisabled() || this.hbLoading());
+
+  private blockInactive(event: Event): void {
+    if (!this.inactive()) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
 
   private readonly tagName = this.host.nativeElement.tagName;
 
