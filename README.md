@@ -12,7 +12,7 @@ More than 65 open-source Angular components — signals-first, `OnPush` througho
 
 | Path | What lives there |
 |---|---|
-| `projects/herbst/` | The component library, published as [`@herbst/ui`](projects/herbst) |
+| `projects/herbst/` | The component library source, used by the docs through the internal `@herbst/ui` path alias |
 | `src/app/` | Documentation site + landing page (Angular app) |
 | `cli/` | `herbst-ui` — the CLI that copies components into your project |
 | `registry/` | Component registry consumed by the CLI (`index.json` + per-component payloads) |
@@ -21,8 +21,8 @@ More than 65 open-source Angular components — signals-first, `OnPush` througho
 ## Using the library
 
 ```bash
-npm i @herbst/ui
-npx herbst-ui add button calendar command
+npx herbst-ui@latest init
+npx herbst-ui@latest add button calendar command
 ```
 
 Each component arrives typed, accessible and already wearing the theme — source included, no secrets. See the [documentation](https://github.com/KauanHerbst/herbst-ui) for the full catalogue, theming and dark mode.
@@ -67,7 +67,7 @@ Mais de 65 componentes Angular open-source — signals em primeiro lugar, `OnPus
 
 | Caminho | O que vive ali |
 |---|---|
-| `projects/herbst/` | A biblioteca de componentes, publicada como [`@herbst/ui`](projects/herbst) |
+| `projects/herbst/` | O código da biblioteca de componentes, usado pela documentação via alias interno `@herbst/ui` |
 | `src/app/` | Site de documentação + landing page (app Angular) |
 | `cli/` | `herbst-ui` — o CLI que copia componentes para o seu projeto |
 | `registry/` | Registro de componentes consumido pelo CLI (`index.json` + payloads por componente) |
@@ -76,8 +76,8 @@ Mais de 65 componentes Angular open-source — signals em primeiro lugar, `OnPus
 ### Usando a biblioteca
 
 ```bash
-npm i @herbst/ui
-npx herbst-ui add button calendar command
+npx herbst-ui@latest init
+npx herbst-ui@latest add button calendar command
 ```
 
 Cada componente chega tipado, acessível e já vestindo o tema — código incluso, sem segredo. Veja a [documentação](https://github.com/KauanHerbst/herbst-ui) para o catálogo completo, tema e modo escuro.
