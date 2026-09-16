@@ -41,7 +41,7 @@ npx herbst-ui add tabs tooltip drawer
 | `--overwrite` | Replace files that already exist |
 | `--cwd <path>` | Run against another directory |
 
-Components land in the folder configured by `init` (default `src/lib/shared/components`) — typed, accessible and already wearing the theme. Read them, adapt them, delete what you don't need.
+Components land in the folder configured by `init` (default `src/app/shared/ui`) — typed, accessible and already wearing the theme. Read them, adapt them, delete what you don't need.
 
 ## How it works
 
