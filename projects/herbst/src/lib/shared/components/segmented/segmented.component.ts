@@ -23,8 +23,8 @@ import {
   type HbSegmentedSize,
 } from './segmented.variants';
 
-export interface HbSegmentedOption {
-  value: string;
+export interface HbSegmentedOption<T extends string = string> {
+  value: T;
   label: string;
   disabled?: boolean;
   icon?: string;
@@ -49,7 +49,7 @@ export interface HbSegmentedOption {
           [disabled]="opt.disabled || disabledState()"
           [attr.aria-checked]="isSelected(opt.value)"
           [attr.aria-label]="opt.label"
-          [attr.tabindex]="isSelected(opt.value) ? 0 : -1"
+          [attr.tabindex]="opt.value === focusValue() ? 0 : -1"
           (click)="selectOption(opt.value)"
         >
           @if (opt.icon) {
@@ -70,9 +70,9 @@ export interface HbSegmentedOption {
   host: { '[class]': 'hostClasses()', '[attr.data-slot]': "'segmented'" },
   exportAs: 'hbSegmented',
 })
-export class HbSegmentedComponent implements ControlValueAccessor {
-  readonly hbOptions = input<HbSegmentedOption[]>([]);
-  readonly hbValue = model<string>('');
+export class HbSegmentedComponent<T extends string = string> implements ControlValueAccessor {
+  readonly hbOptions = input<readonly HbSegmentedOption<T>[]>([]);
+  readonly hbValue = model<T | ''>('');
   readonly hbSize = input<HbSegmentedSize>('md');
   readonly hbDisabled = input(false, { transform: booleanAttribute });
   readonly hbFluid = input(false, { transform: booleanAttribute });
@@ -83,26 +83,28 @@ export class HbSegmentedComponent implements ControlValueAccessor {
   private readonly optionButtons = viewChildren<ElementRef<HTMLButtonElement>>('optBtn');
 
   private readonly cvaDisabled = signal(false);
-  private onChange: (value: string) => void = () => {};
+  private onChange: (value: T) => void = () => {};
   private onTouched: () => void = () => {};
 
-  protected readonly options = computed<HbSegmentedOption[]>(() => {
+  protected readonly options = computed<readonly HbSegmentedOption<T>[]>(() => {
     const data = this.hbOptions();
     if (data.length) return data;
     return this.items().map((item) => ({
-      value: item.value(),
+      value: item.value() as T,
       label: item.label(),
       disabled: item.hbDisabled(),
       icon: item.hbIcon() || undefined,
     }));
   });
 
-  protected readonly activeValue = computed(() => {
+  protected readonly activeValue = computed<T | ''>(() => {
     const value = this.hbValue();
-    const opts = this.options();
-    if (value && opts.some((o) => o.value === value)) return value;
-    return opts.find((o) => !o.disabled)?.value ?? '';
+    return value && this.options().some((o) => o.value === value) ? value : '';
   });
+
+  protected readonly focusValue = computed<T | ''>(
+    () => this.activeValue() || (this.options().find((o) => !o.disabled)?.value ?? ''),
+  );
 
   protected readonly disabledState = computed(() => this.hbDisabled() || this.cvaDisabled());
 
@@ -113,18 +115,18 @@ export class HbSegmentedComponent implements ControlValueAccessor {
     cn(segmentedVariants({ size: this.hbSize() }), this.hbFluid() && 'flex w-full', this.class()),
   );
 
-  protected isSelected(value: string): boolean {
+  protected isSelected(value: T): boolean {
     return this.activeValue() === value;
   }
 
-  protected itemClasses(opt: HbSegmentedOption): string {
+  protected itemClasses(opt: HbSegmentedOption<T>): string {
     return cn(
       segmentedItemVariants({ size: this.hbSize(), active: this.isSelected(opt.value) }),
       this.hbFluid() && 'flex-1',
     );
   }
 
-  protected selectOption(value: string): void {
+  protected selectOption(value: T): void {
     if (this.disabledState()) return;
     const opt = this.options().find((o) => o.value === value);
     if (!opt || opt.disabled || value === this.hbValue()) return;
@@ -141,7 +143,7 @@ export class HbSegmentedComponent implements ControlValueAccessor {
 
     const currentPos = Math.max(
       0,
-      enabled.findIndex((x) => x.o.value === this.activeValue()),
+      enabled.findIndex((x) => x.o.value === this.focusValue()),
     );
     let targetPos = currentPos;
     switch (event.key) {
@@ -168,10 +170,10 @@ export class HbSegmentedComponent implements ControlValueAccessor {
     this.optionButtons()[target.i]?.nativeElement.focus();
   }
 
-  writeValue(value: string): void {
+  writeValue(value: T | null): void {
     this.hbValue.set(value ?? '');
   }
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: T) => void): void {
     this.onChange = fn;
   }
   registerOnTouched(fn: () => void): void {
