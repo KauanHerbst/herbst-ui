@@ -63,6 +63,8 @@ export class DocsTocComponent {
   protected readonly active = signal('');
   protected readonly title = computed(() => this.locale.t('toc.title'));
 
+  private scroller: HTMLElement | null = null;
+
   constructor() {
     afterNextRender(() => {
       const content = this.document.getElementById('docs-content');
@@ -70,7 +72,9 @@ export class DocsTocComponent {
       const scan = (): void => this.build(content);
       const observer = new MutationObserver(scan);
       observer.observe(content, { childList: true, subtree: true, characterData: true });
-      const scroller: EventTarget = content.closest('main') ?? window;
+      const main = content.closest('main');
+      this.scroller = main;
+      const scroller: EventTarget = main ?? window;
       let ticking = false;
       const onScroll = (): void => {
         if (ticking) return;
@@ -104,12 +108,22 @@ export class DocsTocComponent {
   }
 
   private spy(): void {
-    let current = '';
-    for (const item of this.items()) {
-      const el = this.document.getElementById(item.id);
-      if (el && el.getBoundingClientRect().top <= 120) current = item.id;
+    const items = this.items();
+    const box = this.scroller;
+    const top = box ? box.getBoundingClientRect().top : 0;
+    const height = box ? box.clientHeight : (this.document.defaultView?.innerHeight ?? 0);
+    const atEnd = !!box && box.scrollTop > 0 && box.scrollTop + box.clientHeight >= box.scrollHeight - 2;
+    if (atEnd && items.length) {
+      this.active.set(items[items.length - 1].id);
+      return;
     }
-    this.active.set(current || this.items()[0]?.id || '');
+    const line = top + height / 3;
+    let current = '';
+    for (const item of items) {
+      const el = this.document.getElementById(item.id);
+      if (el && el.getBoundingClientRect().top <= line) current = item.id;
+    }
+    this.active.set(current || items[0]?.id || '');
   }
 
   protected href(id: string): string {
