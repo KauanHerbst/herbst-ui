@@ -1,6 +1,12 @@
+import { realpathSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import pc from 'picocolors';
 import { runInit } from './commands/init';
 import { runAdd } from './commands/add';
+
+const FONTS_HINT = `The theme uses Inter, JetBrains Mono and Newsreader. Load them in your index.html:
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" />
+`;
 
 export interface ParsedArgs {
   command: string;
@@ -40,6 +46,7 @@ async function main(argv: string[]): Promise<void> {
       project: typeof flags.project === 'string' ? flags.project : undefined,
     });
     process.stdout.write(pc.green(`herbst-ui ready. Components go to ${config.componentsDir}\n`));
+    process.stdout.write(pc.dim(FONTS_HINT));
     return;
   }
 
@@ -58,8 +65,16 @@ async function main(argv: string[]): Promise<void> {
   process.stdout.write('herbst-ui - commands: init, add <component...>\n');
 }
 
-const invokedDirectly = process.argv[1]?.endsWith('index.js');
-if (invokedDirectly) {
+function isEntryPoint(): boolean {
+  if (!process.argv[1]) return false;
+  try {
+    return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+if (isEntryPoint()) {
   main(process.argv.slice(2)).catch((err) => {
     process.stderr.write(pc.red(`${err instanceof Error ? err.message : String(err)}\n`));
     process.exitCode = 1;
