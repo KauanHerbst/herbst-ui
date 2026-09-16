@@ -32,7 +32,7 @@ import {
   HbTabsImports,
 } from '@herbst/ui';
 
-import herbstPkg from '../../../projects/herbst/package.json';
+import herbstPkg from '../../../cli/package.json';
 
 import { DocsHeaderComponent } from '../docs/docs-header.component';
 import { LocaleService } from '../docs/locale.service';
