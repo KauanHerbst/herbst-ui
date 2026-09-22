@@ -2,7 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "status": 404, "dest": "/index.csr.html" }
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "status": 404,
+      "dest": "/index.csr"
+    }
   ]
 }
