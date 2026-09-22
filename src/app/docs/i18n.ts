@@ -28,7 +28,7 @@ export const MESSAGES: Record<Locale, Dict> = {
     'notfound.desc': 'The leaf you are looking for has already fallen.',
     'notfound.back': 'Back to the start',
     'meta.description':
-      'More than 65 open-source Angular components styled after the German autumn — signals-first, fully themable, copy-paste.',
+      'More than 65 open source Angular components with the colors of a German autumn. Built with signals, easy to theme and copied into your project.',
 
     'group.gettingStarted': 'Getting Started',
     'group.styling': 'Styling',
@@ -86,7 +86,7 @@ export const MESSAGES: Record<Locale, Dict> = {
 
     'landing.hero.title': 'Bring Autumn Into Your Project',
     'landing.hero.desc':
-      'Build interfaces with Herbst UI for modern Angular — more than 65 fully themable components. Styled after the true German autumn. Install with the CLI, copy the source, make it your own.',
+      'More than 65 Angular components with the colors of a German autumn. Install with the CLI, get the code in your project and change whatever you want.',
     'landing.hero.start': 'Get started',
     'landing.hero.view': 'View components',
     'landing.hero.arrived': 'Autumn has arrived!',
@@ -95,33 +95,34 @@ export const MESSAGES: Record<Locale, Dict> = {
     'landing.install.eyebrow': 'Get started',
     'landing.install.title': 'Ready in minutes, not days.',
     'landing.install.desc':
-      'One CLI command drops a component into your project — source included, no secrets. Each one arrives typed, accessible and already wearing the theme.',
+      'One CLI command copies a component into your project. The code is yours, already typed, accessible and using the theme.',
     'landing.install.read': 'Read the docs',
     'landing.install.copy': 'Copy',
     'landing.install.copied': 'Copied',
     'landing.install.mounted': '✓ 3 components added to src/app/shared/ui',
-    'landing.install.catalogued': '— button, calendar, command ready to import',
+    'landing.install.catalogued': 'button, calendar and command ready to import',
     'landing.spec.eyebrow': 'Live components',
     'landing.spec.title': 'Every component, live on the page.',
     'landing.spec.desc':
-      'A working cut of the library — press, toggle and type. Every example runs the real code; the full pages live in the docs.',
+      'A sample of the library to try right here: click, toggle and type. The examples run the real code, and the docs have every detail.',
     'landing.spec.browse': 'Browse all components',
     'landing.theme.eyebrow': 'Theming',
     'landing.theme.title': 'Paper by day, Dusk by night.',
     'landing.theme.desc':
-      'The whole library reads from one file of CSS variables — oklch tokens on Tailwind v4. Change a value in theme.css and every component follows, in light and dark.',
+      'Every color and size lives in one file, theme.css, as oklch CSS variables on Tailwind v4. Change a value and every component follows, in light and dark mode.',
     'landing.theme.view': 'Explore the theme',
     'landing.build.eyebrow': 'Build',
-    'landing.build.title': 'Compose interfaces the easy way.',
+    'landing.build.title': 'Build interfaces with little code.',
     'landing.build.desc':
-      'Import a component, drop the selector in your template and ship — typed inputs, signals and accessibility built in. The code alongside is exactly what renders under it.',
+      'Import the component, add the selector to your template and you are done. Typed inputs, signals and accessibility come built in. The code on the side renders exactly what you see below it.',
     'landing.build.preview': 'Preview',
     'landing.build.start': 'Start building',
     'landing.cta.eyebrow': 'Open source',
-    'landing.cta.title': 'Harvest Herbst UI with us.',
+    'landing.cta.title': 'Build Herbst UI with us.',
     'landing.cta.desc':
-      'Herbst UI is built in the open. File an issue, contribute a component, or star the repository to follow the season.',
+      'Herbst UI is open source. Open an issue, contribute a component or star the repository to follow the updates.',
     'landing.cta.star': 'Star on GitHub',
+    'landing.github.hint': 'Herbst UI lives here. Issues and PRs are welcome.',
     'landing.cta.contributing': 'Contributing guide',
     'landing.footer.tagline': 'Angular interface components in the warm light of a German autumn.',
     'landing.footer.docs': 'Docs',
@@ -160,7 +161,7 @@ export const MESSAGES: Record<Locale, Dict> = {
     'notfound.desc': 'A folha que você procura já caiu.',
     'notfound.back': 'Voltar ao início',
     'meta.description':
-      'Mais de 65 componentes Angular open-source estilizados como o outono alemão — signals-first, totalmente tematizáveis, copy-paste.',
+      'Mais de 65 componentes Angular open source com as cores de um outono alemão. Feitos com signals, fáceis de tematizar e copiados para o seu projeto.',
 
     'group.gettingStarted': 'Primeiros passos',
     'group.styling': 'Estilo',
@@ -218,7 +219,7 @@ export const MESSAGES: Record<Locale, Dict> = {
 
     'landing.hero.title': 'Leve o Outono Para o seu Projeto',
     'landing.hero.desc':
-      'Construa interfaces com Herbst UI para Angular moderno, com mais de 65 componentes totalmente tematizáveis. Estilizado como o verdadeiro Outono Alemão. Instale com o CLI, copie o código, faça do seu jeito.',
+      'Mais de 65 componentes Angular com as cores de um outono alemão. Instale pela CLI, receba o código no seu projeto e mude o que quiser.',
     'landing.hero.start': 'Começar',
     'landing.hero.view': 'Ver componentes',
     'landing.hero.arrived': 'O outono chegou!',
@@ -227,33 +228,34 @@ export const MESSAGES: Record<Locale, Dict> = {
     'landing.install.eyebrow': 'Começar',
     'landing.install.title': 'Pronto em minutos, não em dias.',
     'landing.install.desc':
-      'Um comando do CLI coloca um componente no seu projeto — código incluso, sem segredo. Cada um chega tipado, acessível e já vestindo o tema.',
+      'Um comando da CLI copia o componente para o seu projeto. O código fica com você, já tipado, acessível e com o tema aplicado.',
     'landing.install.read': 'Ler a documentação',
     'landing.install.copy': 'Copiar',
     'landing.install.copied': 'Copiado',
     'landing.install.mounted': '✓ 3 componentes adicionados em src/app/shared/ui',
-    'landing.install.catalogued': '— button, calendar, command prontos para importar',
+    'landing.install.catalogued': 'button, calendar e command prontos para importar',
     'landing.spec.eyebrow': 'Componentes ao vivo',
     'landing.spec.title': 'Cada componente, ao vivo na página.',
     'landing.spec.desc':
-      'Um recorte funcional da biblioteca — pressione, alterne e digite. Cada exemplo roda o código real; as páginas completas vivem na documentação.',
+      'Uma amostra da biblioteca para testar aqui mesmo: clique, alterne e digite. Os exemplos usam o código real, e a documentação traz todos os detalhes.',
     'landing.spec.browse': 'Ver todos os componentes',
     'landing.theme.eyebrow': 'Tema',
     'landing.theme.title': 'Paper de dia, Dusk à noite.',
     'landing.theme.desc':
-      'A biblioteca inteira lê de um único arquivo de variáveis CSS — tokens oklch no Tailwind v4. Mude um valor no theme.css e todos os componentes acompanham, no claro e no escuro.',
+      'Todas as cores e medidas ficam em um único arquivo, o theme.css, com variáveis CSS em oklch no Tailwind v4. Mude um valor e todos os componentes acompanham, no modo claro e no escuro.',
     'landing.theme.view': 'Explorar o tema',
     'landing.build.eyebrow': 'Construir',
-    'landing.build.title': 'Componha interfaces do jeito fácil.',
+    'landing.build.title': 'Monte interfaces com pouco código.',
     'landing.build.desc':
-      'Importe um componente, solte o selector no seu template e pronto — inputs tipados, signals e acessibilidade já inclusos. O código ao lado é exatamente o que renderiza logo embaixo.',
+      'Importe o componente, coloque o seletor no template e pronto. Inputs tipados, signals e acessibilidade já vêm incluídos. O código ao lado gera exatamente o que aparece embaixo dele.',
     'landing.build.preview': 'Prévia',
     'landing.build.start': 'Começar a construir',
     'landing.cta.eyebrow': 'Open source',
-    'landing.cta.title': 'Colha o Herbst UI com a gente.',
+    'landing.cta.title': 'Construa o Herbst UI com a gente.',
     'landing.cta.desc':
-      'O Herbst UI é construído abertamente. Abra uma issue, contribua com um componente, ou dê uma estrela no repositório para acompanhar a estação.',
+      'O Herbst UI é open source. Abra uma issue, contribua com um componente ou dê uma estrela no repositório para acompanhar as novidades.',
     'landing.cta.star': 'Estrela no GitHub',
+    'landing.github.hint': 'O Herbst UI fica aqui. Issues e PRs são bem-vindos.',
     'landing.cta.contributing': 'Guia de contribuição',
     'landing.footer.tagline': 'Componentes de interface Angular na luz quente de um outono alemão.',
     'landing.footer.docs': 'Docs',

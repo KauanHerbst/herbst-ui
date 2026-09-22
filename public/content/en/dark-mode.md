@@ -1,10 +1,10 @@
 # Dark mode
 
-Dark mode is autumn at dusk — Herbst's **Dusk** theme. The same October wood as the light falls: a warm charcoal, never pure black, the last leaves catching a low glow under a late-afternoon sky. It's driven by a single `.dark` class on the root element.
+Herbst's dark theme is called **Dusk**, the late afternoon of autumn. The background is a warm charcoal, never pure black, and the orange accent stays the same. Everything is controlled by a `.dark` class on the root element.
 
 ## How it works
 
-Every token is defined twice — once for light, once under `.dark`. Toggle one class on `<html>` and the whole catalogue turns to Dusk.
+Each token has two values: one for the light theme and one inside `.dark`. Add the class to `<html>` and every component switches to Dusk.
 
 ```css
 .dark {
@@ -13,11 +13,11 @@ Every token is defined twice — once for light, once under `.dark`. Toggle one 
 }
 ```
 
-Because components read the tokens, nothing else changes — the season shifts from day to dusk all at once.
+Components read these tokens, so you don't need to change anything else.
 
 ## Toggle
 
-Drop this in anywhere. It flips the class and remembers the choice.
+This button turns the class on and off and saves the choice in `localStorage`.
 
 ```ts
 import { DOCUMENT } from '@angular/common';

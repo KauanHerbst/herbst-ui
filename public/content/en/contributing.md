@@ -1,14 +1,14 @@
 # Contributing
 
-Herbst UI is built in the open, and every contribution is welcome — from a docs typo to a brand-new component. To keep the harvest tidy, everything flows through issues.
+Herbst UI is open source and all help is welcome, from a typo in the docs to a new component. To keep things organized, work always starts with an issue.
 
 ## The flow
 
-1. **Open an issue before any code.** Bugs, ideas and improvements start as an issue on [GitHub](https://github.com/KauanHerbst/herbst-ui/issues). Describe the problem or proposal and wait for the discussion — it avoids duplicated or misdirected work.
-2. **Wait for the green light.** Once accepted, the issue gets the `approved` label and you can start. Issues without prior discussion may be closed.
+1. **Open an issue before any code.** Bugs, ideas and improvements start as an issue on [GitHub](https://github.com/KauanHerbst/herbst-ui/issues). Describe the problem or proposal and wait for the discussion. This way nobody does repeated work or work outside the project's direction.
+2. **Wait for approval.** Once accepted, the issue gets the `approved` label and you can start. Issues without prior discussion may be closed.
 3. **Fork and branch.** Fork the repository and create a descriptive branch (`fix/tooltip-focus`, `feat/toast-progress`).
 4. **Open a Pull Request linked to the issue.** Use `Closes #123` in the description. PRs without a linked issue will be closed with a request to open one.
-5. **Review and merge.** Every PR goes through maintainer review. The `main` branch is protected — no code lands without an approved PR.
+5. **Review and merge.** Every PR goes through maintainer review. The `main` branch is protected, so no code lands without an approved PR.
 
 ## Running the project
 
@@ -23,16 +23,16 @@ The documentation app runs at `http://localhost:4200` and consumes the library s
 
 ## Code standards
 
-- **Signals-first Angular.** Standalone components, `input()`/`model()`/`output()`, `OnPush` throughout. No modules.
-- **One component per file**, `hb`-prefixed selectors, `data-slot` attributes on internal elements.
-- **No comments in code** — the code should explain itself.
-- **Semantic tokens always** (`bg-primary`, `text-muted-foreground`, `border-border`). Never hardcoded colors.
-- Run `npm run build` before opening the PR — the build must be green.
+- **Modern Angular.** Standalone components, `input()`/`model()`/`output()` and `OnPush` everywhere. No modules.
+- **One component per file**, with `hb`-prefixed selectors and `data-slot` attributes on internal elements.
+- **No comments in code.** The code should explain itself.
+- **Always semantic tokens** (`bg-primary`, `text-muted-foreground`, `border-border`), never hardcoded colors.
+- Run `npm run build` before opening the PR. The build must pass.
 
 ## What to contribute
 
-- **Bugs** — always welcome, with a minimal reproduction.
-- **Documentation** — examples, fixes and translations.
-- **New components** — open the issue first; Herbst UI's visual direction is intentional and not every component fits the catalogue.
+- **Bugs**, ideally with a minimal example that reproduces the problem.
+- **Documentation**: examples, fixes and translations.
+- **New components**: open the issue first. Herbst UI's look follows a set direction and not every component fits the catalogue.
 
-Thanks for helping the season grow. 🍂
+Thanks for helping the project grow. 🍂

@@ -1,25 +1,25 @@
 # Introdução
 
-**Herbst** é o termo em alemão para *outono* — e esta biblioteca foi criada para trazer a melhor estação do ano na Alemanha diretamente para o seu projeto: a luz quente e sépia de um outono no centro da Europa, acompanhada por uma única brasa brilhando silenciosamente.
+**Herbst** quer dizer *outono* em alemão. A biblioteca nasceu da vontade de levar essa estação para as interfaces: luz quente, tons de sépia e um único laranja de destaque, usado com cuidado.
 
-Componentes Angular no formato de cópia e cola. Mais de sessenta e cinco elementos customizáveis para o seu projeto, cada um trazendo essa estação para sua interface — folhas caindo sobre ruas de paralelepípedo, árvores douradas e cor de ferrugem, castanheiras e a névoa quieta de uma manhã alemã de outubro. Construir com o Herbst UI deve evocar a sensação de um outubro alemão claro: tranquilo, acolhedor e inconfundivelmente autêntico.
+São mais de 65 componentes Angular no modelo de copiar e colar. Você adiciona pela CLI, o código vai para o seu projeto e você muda o que quiser.
 
 ## Filosofia
 
-- **O código é do seu projeto.** Os componentes vivem no seu repositório, não atrás de um pacote — totalmente customizáveis. Leia, adapte, apague o que não precisar.
-- **Uma fonte de verdade para o estilo.** Todo componente lê tokens semânticos (`bg-primary`, `text-muted-foreground`, `border-border`). Edite um único arquivo de tema e o sistema inteiro se re-tematiza.
-- **Angular com signals primeiro.** Componentes standalone, `input()`/`model()`/`output()`, `OnPush` em tudo. Sem módulos.
-- **Uma identidade real.** Um visual próprio, não um template genérico — quieto, quente e inconfundível.
+- **O código é seu.** Os componentes ficam no seu repositório, não dentro de um pacote. Leia, adapte e apague o que não usar.
+- **Um só lugar para o estilo.** Todo componente usa tokens semânticos (`bg-primary`, `text-muted-foreground`, `border-border`). Mude o arquivo de tema e tudo acompanha.
+- **Angular moderno.** Componentes standalone, `input()`/`model()`/`output()` e `OnPush` em todos. Sem módulos.
+- **Visual próprio.** Nada de template genérico. O Herbst tem uma cara calma, quente e fácil de reconhecer.
 
 ## O que tem dentro
 
-O catálogo cobre toda a superfície de uma aplicação — overlays, formulários, exibição de dados, navegação, feedback e layout. Botões e inputs, diálogos e drawers, tabelas e árvores, uma paleta de comandos, gráficos, um calendário, e mais.
+O catálogo cobre o que uma aplicação costuma precisar: formulários, overlays, navegação, exibição de dados, feedback e layout. Tem botões, inputs, diálogos, drawers, tabelas, árvores, paleta de comandos, gráficos, calendário e muito mais.
 
-Navegue por todos no catálogo de [Componentes](/pt/docs/components).
+Veja todos no catálogo de [Componentes](/pt/docs/components).
 
 ## Como começar
 
-1. [Instalação](/pt/docs/installation) — configure o Tailwind, o tema e os utilitários base.
-2. [CLI](/pt/docs/cli) — adicione componentes com um comando.
-3. [Tema](/pt/docs/theme) e [Cores](/pt/docs/colors) — deixe a paleta com a sua cara.
-4. [Modo escuro](/pt/docs/dark-mode) — conecte os temas claro e escuro.
+1. [Instalação](/pt/docs/installation): prepare o projeto com um comando.
+2. [CLI](/pt/docs/cli): adicione componentes.
+3. [Tema](/pt/docs/theme) e [Cores](/pt/docs/colors): ajuste a paleta.
+4. [Modo escuro](/pt/docs/dark-mode): ative o tema escuro.

@@ -1,10 +1,10 @@
 # Modo escuro
 
-O modo escuro é o outono ao entardecer — o tema **Dusk** do Herbst. O mesmo bosque de outubro quando a luz cai: um carvão quente, nunca preto puro, com as últimas folhas ganhando um brilho baixo sob o céu de fim de tarde. É controlado por uma única classe `.dark` no elemento raiz.
+O tema escuro do Herbst se chama **Dusk**, o fim de tarde do outono. O fundo é um carvão quente, nunca preto puro, e o laranja de destaque continua o mesmo. Tudo é controlado por uma classe `.dark` no elemento raiz.
 
 ## Como funciona
 
-Cada token é definido duas vezes — uma para o claro, outra sob `.dark`. Alterne uma classe no `<html>` e o catálogo inteiro vira Dusk.
+Cada token tem dois valores: um para o tema claro e outro dentro de `.dark`. Coloque a classe no `<html>` e todos os componentes mudam para o Dusk.
 
 ```css
 .dark {
@@ -13,11 +13,11 @@ Cada token é definido duas vezes — uma para o claro, outra sob `.dark`. Alter
 }
 ```
 
-Como os componentes leem os tokens, nada mais muda — a estação passa do dia ao entardecer de uma vez só.
+Os componentes leem esses tokens, então você não precisa mudar mais nada.
 
 ## Toggle
 
-Coloque isto em qualquer lugar. Ele inverte a classe e lembra a escolha.
+Este botão liga e desliga a classe e guarda a escolha no `localStorage`.
 
 ```ts
 import { DOCUMENT } from '@angular/common';

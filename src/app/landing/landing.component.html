@@ -44,7 +44,7 @@
             </a>
             <hb-hover-card-content [hbWidth]="230">
               <p class="text-sm font-medium">&#64;KauanHerbst</p>
-              <p class="text-sm text-muted-foreground">Herbst UI lives here — issues and PRs welcome.</p>
+              <p class="text-sm text-muted-foreground">{{ 'landing.github.hint' | t }}</p>
             </hb-hover-card-content>
           </hb-hover-card>
         </div>
@@ -106,7 +106,7 @@
       <hb-carousel-content>
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·011</span> — Button</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·011</span> Button</div>
             <div class="flex flex-1 flex-wrap content-center items-center gap-2 p-4">
               <button hb-button hbSize="sm">Default</button>
               <button hb-button hbType="secondary" hbSize="sm">Secondary</button>
@@ -119,7 +119,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·032</span> — Input</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·032</span> Input</div>
             <div class="flex flex-1 flex-col justify-center gap-3 p-4">
               <input hb-input placeholder="City or region" aria-label="City or region" />
               <input hb-input hbSize="sm" class="font-mono" placeholder="Freiburg, DE" aria-label="City code" />
@@ -129,7 +129,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[320px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·061</span> — Switch</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·061</span> Switch</div>
             <div class="flex flex-1 flex-col justify-center gap-4 p-4 text-sm">
               <hb-switch [hbChecked]="true">Daily forecast at sunrise</hb-switch>
               <hb-switch>Notify on first frost</hb-switch>
@@ -139,7 +139,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·063</span> — Tabs</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·063</span> Tabs</div>
             <div class="flex-1 p-4">
               <hb-tabs [(hbValue)]="specTab">
                 <hb-tab-list>
@@ -163,7 +163,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·052</span> — Segmented</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·052</span> Segmented</div>
             <div class="flex flex-1 flex-col items-start justify-center gap-3 p-4">
               <hb-segmented [(hbValue)]="specView">
                 <hb-segmented-item value="list" label="List"></hb-segmented-item>
@@ -181,7 +181,7 @@
       <hb-carousel-content>
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·017</span> — Checkbox</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·017</span> Checkbox</div>
             <div class="flex flex-1 flex-col justify-center gap-3 p-4 text-sm">
               <hb-checkbox [hbChecked]="true">Email me when the leaves turn</hb-checkbox>
               <hb-checkbox>Include weekend forecasts</hb-checkbox>
@@ -192,7 +192,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·006</span> — Avatar</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·006</span> Avatar</div>
             <div class="flex flex-1 flex-col justify-center gap-4 p-4">
               <div class="flex items-center gap-3">
                 <hb-avatar hbFallback="KH" hbStatus="online" />
@@ -212,7 +212,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·007</span> — Badge</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·007</span> Badge</div>
             <div class="flex flex-1 flex-wrap content-center items-center gap-2 p-4">
               <span hb-badge>Default</span>
               <span hb-badge hbType="secondary">Secondary</span>
@@ -226,7 +226,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·045</span> — Pagination</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·045</span> Pagination</div>
             <div class="flex flex-1 flex-col items-start justify-center gap-2 p-4">
               <hb-pagination [(hbPage)]="specPage" [hbTotal]="69" [hbPageSize]="10" />
               <p class="font-mono text-[11px] text-muted-foreground">page · <span class="text-primary">{{ specPage() }}</span> / 7</p>
@@ -236,7 +236,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·036</span> — Kbd</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·036</span> Kbd</div>
             <div class="flex flex-1 flex-col justify-center gap-3 p-4 text-sm text-muted-foreground">
               <div class="flex items-center justify-between gap-2">Open the search <hb-kbd-group><hb-kbd>⌘</hb-kbd><hb-kbd>K</hb-kbd></hb-kbd-group></div>
               <div class="flex items-center justify-between gap-2">Toggle dark mode <hb-kbd-group><hb-kbd>⌘</hb-kbd><hb-kbd>D</hb-kbd></hb-kbd-group></div>
@@ -250,7 +250,7 @@
       <hb-carousel-content>
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[340px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·002</span> — Alert</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·002</span> Alert</div>
             <div class="flex flex-1 items-center p-4">
               <hb-alert hbTitle="Season changed" hbDescription="Autumn arrived in Bavaria overnight." />
             </div>
@@ -259,7 +259,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·010</span> — Breadcrumb</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·010</span> Breadcrumb</div>
             <div class="flex flex-1 items-center p-4">
               <hb-breadcrumb>
                 <hb-breadcrumb-item>Herbst UI</hb-breadcrumb-item>
@@ -272,7 +272,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[320px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·048</span> — Progress</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·048</span> Progress</div>
             <div class="flex flex-1 flex-col justify-center gap-4 p-4">
               <hb-progress [hbValue]="34" hbLabel="Leaves turning" hbShowValue />
               <hb-progress [hbValue]="72" hbLabel="Daylight left" hbShowValue hbType="success" />
@@ -282,7 +282,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·050</span> — Radio</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·050</span> Radio</div>
             <div class="flex flex-1 flex-col justify-center p-4 text-sm">
               <hb-radio-group [(hbValue)]="specPlan" hbName="spec-plan">
                 <hb-radio [hbValue]="'walk'">Morning walk</hb-radio>
@@ -294,7 +294,7 @@
 
         <hb-carousel-item class="basis-auto">
           <div class="flex h-52 w-[300px] flex-col rounded-md border border-border bg-card shadow-xs">
-            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·056</span> — Skeleton</div>
+            <div class="border-b border-border px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground"><span class="text-primary">HB·056</span> Skeleton</div>
             <div class="flex flex-1 flex-col justify-center gap-3 p-4">
               <div class="flex items-center gap-3">
                 <hb-skeleton hbShape="circle" hbSize="lg" />

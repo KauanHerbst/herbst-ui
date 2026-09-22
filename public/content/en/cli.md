@@ -1,39 +1,39 @@
 # CLI
 
-The `herbst-ui` CLI copies component source into your project and rewrites its imports to your alias — the copy-paste model, automated. Run it with `npx`, no global install.
+The `herbst-ui` CLI copies component code into your project and points the imports to your alias. Run it with `npx`, no global install needed.
 
 ## Init
 
-Set up a project once. `init` writes a config file, wires a path alias, installs the base dependencies, and drops in the theme and the `cn` utility.
+Run it once per project.
 
 ```bash
 npx herbst-ui@latest init
 ```
 
-It detects your Angular application, then asks (or accepts flags) for:
+`init` finds the application in `angular.json` and creates `herbst.json` with these options:
 
-- **componentsDir** — where components are written, e.g. `src/app/shared/ui`.
-- **alias** — the import alias, e.g. `@shared/ui`.
-- **theme** — the editable `theme.css`.
+- **componentsDir**: the components folder. Default `src/app/shared/ui`.
+- **alias**: the import alias. Default `@shared/ui`.
+
+It also adds the alias to `tsconfig`, copies `theme.css` and the `cn` utility, imports the theme in your global CSS and installs the base dependencies. To change the folder or the alias, edit `herbst.json`.
 
 ## Add
 
-Add one or more components. Dependencies between components are resolved automatically, so adding `select` also brings whatever it relies on.
+Add one or more components at once. If a component depends on another, the CLI brings both.
 
 ```bash
 npx herbst-ui@latest add button
 npx herbst-ui@latest add dialog input select
 ```
 
-Each component's source is written under your `componentsDir`, with imports rewritten to your alias and any missing npm dependencies installed.
+The files go into `componentsDir`, with imports already using your alias. Missing npm dependencies are installed.
 
 ## Flags
 
-- `--overwrite` — replace existing files without asking.
-- `--yes` — accept all prompts.
-- `--path <dir>` — override the destination directory.
-- `--dry-run` — preview what would be written without touching disk.
+- `--overwrite`: with `add`, replaces files that already exist.
+- `--project <name>`: with `init`, picks the application when `angular.json` has more than one.
+- `--cwd <dir>`: runs the command in another folder.
 
 ## How it works
 
-Component source is served from a generated registry (one JSON per component). `add` reads the registry, resolves the dependency graph, substitutes your alias into the file contents, and writes them into your project — nothing stays hidden behind a package.
+Each component is published in a registry, with one JSON per component. `add` reads the registry, resolves the dependencies, rewrites the imports to your alias and writes the files into your project. Nothing stays hidden inside a package.
