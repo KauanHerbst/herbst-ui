@@ -3,6 +3,13 @@
   "cleanUrls": true,
   "routes": [
     {
+      "src": "/images/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=2592000"
+      },
+      "continue": true
+    },
+    {
       "handle": "filesystem"
     },
     {

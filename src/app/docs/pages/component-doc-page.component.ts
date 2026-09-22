@@ -6,6 +6,8 @@ import { map } from 'rxjs';
 
 import { HbCodePreviewImports, HbTableImports } from '@herbst/ui';
 
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+
 import { COMPONENT_DOCS, type LocalizedText } from '../component-docs';
 import { titleFromSlug } from '../docs-nav';
 import { DocsPagerComponent } from '../docs-pager.component';
@@ -102,6 +104,7 @@ import { TranslatePipe } from '../t.pipe';
       </div>
     }
   `,
+  providers: [provideCharts(withDefaultRegisterables())],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentDocPageComponent {

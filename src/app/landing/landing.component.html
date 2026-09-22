@@ -7,8 +7,8 @@
   <app-hb-leaves />
   <div class="hb-scrub-block absolute z-[1] overflow-hidden" [style]="heroImgBox()">
     @if (showCover()) {
-      @for (img of heroSources(); track img; let i = $index) {
-        <img [src]="img" alt="" [attr.fetchpriority]="i === 0 ? 'high' : null" width="1600" height="1067" class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000" [class.opacity-0]="heroImg() !== i" />
+      @for (img of heroSources(); track img.src; let i = $index) {
+        <img [src]="img.src" [srcset]="img.srcset" [attr.sizes]="heroSizes()" alt="" [attr.fetchpriority]="i === 0 ? 'high' : null" width="1600" height="1067" class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000" [class.opacity-0]="heroImg() !== i" />
       }
     }
     <div class="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-black/25" [style]="heroArrivedStyle()">
@@ -23,7 +23,7 @@
       </div>
       <div [style]="heroPanelStyle(0.12)" class="mt-8 rounded-md border border-border bg-card p-5 shadow-xs">
         <div class="flex items-center gap-4">
-          <hb-avatar hbSrc="/images/kauanherbst.jpeg" hbAlt="Kauan Herbst" hbFallback="KH" hbSize="lg" hbStatus="online" />
+          <hb-avatar hbSrc="/images/kauanherbst.webp" hbAlt="Kauan Herbst" hbFallback="KH" hbSize="lg" hbStatus="online" />
           <div class="min-w-0 flex-1">
             <p class="font-display text-base font-semibold italic">Kauan Herbst</p>
             <p class="text-sm text-muted-foreground">Creator of Herbst UI</p>

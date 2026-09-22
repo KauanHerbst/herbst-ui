@@ -40,7 +40,6 @@ import {
   phosphorInstagramLogo,
 } from '@ng-icons/phosphor-icons/regular';
 
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { routes } from './app.routes';
 
@@ -51,7 +50,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
     { provide: TitleStrategy, useClass: DocsTitleStrategy },
     provideHttpClient(withFetch()),
-    provideCharts(withDefaultRegisterables()),
     provideIcons({
       phosphorArrowRight,
       phosphorList,

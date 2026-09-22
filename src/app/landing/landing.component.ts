@@ -167,14 +167,15 @@ export class Landing {
   protected readonly libName = herbstPkg.name;
   protected readonly libVersion = herbstPkg.version;
 
-  private readonly heroImages = [
-    '/images/landing/autumn-1.webp',
-    '/images/landing/autumn-2.webp',
-    '/images/landing/autumn-3.webp',
-    '/images/landing/autumn-4.webp',
-  ];
+  private readonly heroImages = [1, 2, 3, 4].map((n) => `/images/landing/autumn-${n}`);
   private readonly heroCount = signal(1);
-  protected readonly heroSources = computed(() => this.heroImages.slice(0, this.heroCount()));
+  protected readonly heroSizes = computed(() => (this.heroP() > 0.2 ? '100vw' : '35vw'));
+  protected readonly heroSources = computed(() =>
+    this.heroImages.slice(0, this.heroCount()).map((base) => ({
+      src: `${base}-800.webp`,
+      srcset: `${base}-800.webp 800w, ${base}-1200.webp 1200w, ${base}.webp 1600w`,
+    })),
+  );
   protected readonly heroImg = signal(0);
   protected readonly showCover = signal(false);
   protected readonly heroP = signal(0);
@@ -213,7 +214,18 @@ export class Landing {
     });
   }
 
+  private scrollPending = false;
+
   protected onScroll(): void {
+    if (this.scrollPending) return;
+    this.scrollPending = true;
+    requestAnimationFrame(() => {
+      this.scrollPending = false;
+      this.measureScroll();
+    });
+  }
+
+  private measureScroll(): void {
     const scrub = window.innerWidth >= 768 && window.innerHeight >= 700;
     this.isMobile = !scrub;
     if (!scrub) {
