@@ -53,7 +53,7 @@ export const MESSAGES: Record<Locale, Dict> = {
     'colors.eyebrow': 'Styling',
     'colors.title': 'Colors',
     'colors.desc':
-      'The palette is drawn from a Central-European autumn — the golds and rusts of turning leaves, bare branches under a low grey sky, the warm and mineral tones of the season. Swatches read from the live theme, so they follow light and dark mode.',
+      'The palette comes from an autumn in Central Europe: gold and rust leaves, bare branches and a grey sky. The swatches read the current theme, so they follow light and dark mode.',
     'colors.group.surfaces': 'Surfaces & ink',
     'colors.group.accent': 'Accent',
     'colors.group.status': 'Status',
@@ -61,13 +61,13 @@ export const MESSAGES: Record<Locale, Dict> = {
     'theme.eyebrow': 'Styling',
     'theme.title': 'Theme',
     'theme.intro':
-      'The theme is where the German autumn lives — the whole season of turning leaves and low, warm light, held in one file of CSS custom properties. Every component reads these semantic tokens, so editing them re-themes the whole system at once, and lets you shift the season to your own.',
+      'The whole look of Herbst lives in one file of CSS variables. Every component reads these semantic tokens, so changing them updates the whole library at once and lets you make the palette your own.',
     'theme.h2.tokens': 'The token system',
     'theme.tokens.desc':
       'Tokens are defined in oklch under :root and redefined under .dark. The table reads from the live theme, so each swatch follows the current mode.',
     'theme.h2.editing': 'Editing the theme',
     'theme.editing.desc':
-      'Open theme.css and change any value. A warmer accent, a cooler paper, a different radius — the change cascades to all 68 components.',
+      'Open theme.css and change any value, like a warmer accent, a cooler background or a different radius. The change reaches all 68 components.',
     'theme.h2.rest': 'Radius, fonts and shadows',
     'theme.rest.desc':
       'The base radius is small and crisp. Type is a serif for headings, a grotesque for body, and a monospace for labels and code. Elevation is carried by hairline borders.',
@@ -186,7 +186,7 @@ export const MESSAGES: Record<Locale, Dict> = {
     'colors.eyebrow': 'Estilo',
     'colors.title': 'Cores',
     'colors.desc':
-      'A paleta vem de um outono no centro da Europa — os dourados e ferrugens das folhas que mudam, os galhos nus sob um céu cinza e baixo, os tons quentes e minerais da estação. As amostras leem o tema ao vivo, então acompanham os modos claro e escuro.',
+      'A paleta vem de um outono no centro da Europa: folhas douradas e cor de ferrugem, galhos secos e céu cinza. As amostras leem o tema atual, então acompanham os modos claro e escuro.',
     'colors.group.surfaces': 'Superfícies & tinta',
     'colors.group.accent': 'Acento',
     'colors.group.status': 'Status',
@@ -194,13 +194,13 @@ export const MESSAGES: Record<Locale, Dict> = {
     'theme.eyebrow': 'Estilo',
     'theme.title': 'Tema',
     'theme.intro':
-      'O tema é onde o outono alemão vive — a estação inteira de folhas mudando e luz baixa e quente, guardada em um único arquivo de custom properties CSS. Todo componente lê esses tokens semânticos, então editá-los re-tematiza o sistema inteiro de uma vez, e deixa você deslocar a estação para a sua.',
+      'Todo o visual do Herbst fica em um único arquivo de variáveis CSS. Todo componente lê esses tokens semânticos, então mudar um valor atualiza a biblioteca inteira de uma vez e deixa a paleta com a sua cara.',
     'theme.h2.tokens': 'O sistema de tokens',
     'theme.tokens.desc':
       'Os tokens são definidos em oklch sob :root e redefinidos sob .dark. A tabela lê o tema ao vivo, então cada amostra acompanha o modo atual.',
     'theme.h2.editing': 'Editando o tema',
     'theme.editing.desc':
-      'Abra o theme.css e mude qualquer valor. Um acento mais quente, um papel mais frio, um radius diferente — a mudança cascateia para os 68 componentes.',
+      'Abra o theme.css e mude qualquer valor, como um destaque mais quente, um fundo mais frio ou outro radius. A mudança chega aos 68 componentes.',
     'theme.h2.rest': 'Radius, fontes e sombras',
     'theme.rest.desc':
       'O radius base é pequeno e nítido. A tipografia é uma serifa para títulos, uma grotesca para o corpo e uma monoespaçada para rótulos e código. A elevação vem das bordas hairline.',
