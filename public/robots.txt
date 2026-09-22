@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://ui.kauanherbst.dev/sitemap.xml

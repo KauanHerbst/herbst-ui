@@ -2,6 +2,7 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   inject,
   signal,
@@ -166,13 +167,16 @@ export class Landing {
   protected readonly libName = herbstPkg.name;
   protected readonly libVersion = herbstPkg.version;
 
-  protected readonly heroImages = [
-    '/images/landing/autumn-1.jpg',
-    '/images/landing/autumn-2.jpg',
-    '/images/landing/autumn-3.jpg',
-    '/images/landing/autumn-4.jpg',
+  private readonly heroImages = [
+    '/images/landing/autumn-1.webp',
+    '/images/landing/autumn-2.webp',
+    '/images/landing/autumn-3.webp',
+    '/images/landing/autumn-4.webp',
   ];
+  private readonly heroCount = signal(1);
+  protected readonly heroSources = computed(() => this.heroImages.slice(0, this.heroCount()));
   protected readonly heroImg = signal(0);
+  protected readonly showCover = signal(false);
   protected readonly heroP = signal(0);
   protected readonly reduceMotion = signal(false);
   private isMobile = false;
@@ -191,11 +195,21 @@ export class Landing {
         this.reduceMotion.set(true);
         return;
       }
+      const cover = window.matchMedia('(min-width: 768px) and (min-height: 700px)');
+      const sync = () => this.showCover.set(cover.matches);
+      sync();
+      cover.addEventListener('change', sync);
+      destroyRef.onDestroy(() => cover.removeEventListener('change', sync));
+
+      const preload = setTimeout(() => this.heroCount.set(this.heroImages.length), 2000);
       const timer = setInterval(
         () => this.heroImg.update((i) => (i + 1) % this.heroImages.length),
         3500,
       );
-      destroyRef.onDestroy(() => clearInterval(timer));
+      destroyRef.onDestroy(() => {
+        clearTimeout(preload);
+        clearInterval(timer);
+      });
     });
   }
 

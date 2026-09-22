@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "NG_BUILD_MAX_WORKERS=4 ng build",
+    "build": "NG_BUILD_MAX_WORKERS=4 ng build && node scripts/build-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "sitemap": "node scripts/build-sitemap.mjs"
   },
   "private": true,
   "packageManager": "npm@11.13.0",

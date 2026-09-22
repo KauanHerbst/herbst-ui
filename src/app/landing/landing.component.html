@@ -5,8 +5,10 @@
 <section class="hb-panel flex border-b border-border bg-background">
   <app-hb-leaves />
   <div class="hb-scrub-block absolute z-[1] overflow-hidden" [style]="heroImgBox()">
-    @for (img of heroImages; track img; let i = $index) {
-      <img [src]="img" alt="" class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000" [class.opacity-0]="heroImg() !== i" />
+    @if (showCover()) {
+      @for (img of heroSources(); track img; let i = $index) {
+        <img [src]="img" alt="" [attr.fetchpriority]="i === 0 ? 'high' : null" width="1600" height="1067" class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000" [class.opacity-0]="heroImg() !== i" />
+      }
     }
     <div class="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-black/25" [style]="heroArrivedStyle()">
       <h2 class="px-6 text-center font-display text-[clamp(36px,6vw,64px)] font-semibold italic tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)]">{{ 'landing.hero.arrived' | t }}</h2>
