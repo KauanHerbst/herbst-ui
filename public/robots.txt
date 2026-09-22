@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ui.kauanherbst.dev/sitemap.xml
+Agentmap: https://ui.kauanherbst.dev/.well-known/ai-catalog.json

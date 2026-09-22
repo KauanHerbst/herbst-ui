@@ -1,0 +1,50 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Herbst UI",
+    "documentationUrl": "https://ui.kauanherbst.dev/en/docs/introduction"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:kauanherbst.ui:registry:components",
+      "displayName": "Herbst UI component registry",
+      "type": "application/json",
+      "url": "https://raw.githubusercontent.com/KauanHerbst/herbst-ui/main/registry/index.json",
+      "description": "Machine-readable index of the Angular components that the herbst-ui CLI copies into a project. Each entry links to a JSON payload with the component source files and its dependencies.",
+      "tags": [
+        "angular",
+        "ui-components",
+        "design-system",
+        "tailwind"
+      ],
+      "capabilities": [
+        "list-components",
+        "fetch-component-source"
+      ],
+      "representativeQueries": [
+        "which Angular components does Herbst UI provide",
+        "get the source code of the Herbst UI button component",
+        "install a Herbst UI component in an Angular project"
+      ],
+      "version": "0.0.7"
+    },
+    {
+      "identifier": "urn:air:kauanherbst.ui:docs:llms",
+      "displayName": "Herbst UI documentation index",
+      "type": "text/markdown",
+      "url": "https://ui.kauanherbst.dev/llms.txt",
+      "description": "Markdown index of the Herbst UI documentation, with links to every guide and component page in English and Portuguese.",
+      "tags": [
+        "documentation",
+        "angular"
+      ],
+      "capabilities": [
+        "read-documentation"
+      ],
+      "representativeQueries": [
+        "how do I install Herbst UI",
+        "how do I theme Herbst UI components"
+      ]
+    }
+  ]
+}
