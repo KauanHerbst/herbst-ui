@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import {
@@ -11,12 +12,15 @@ import { type Locale } from './i18n';
 import { isLocale, LocaleService } from './locale.service';
 
 const BRAND = 'Herbst UI';
+const SITE = 'https://ui.kauanherbst.dev';
+const OG_IMAGE = `${SITE}/images/og-cover.jpg`;
 
 @Injectable({ providedIn: 'root' })
 export class DocsTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   private readonly loc = inject(LocaleService);
+  private readonly document = inject(DOCUMENT);
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
     const locale = this.localeFrom(snapshot);
@@ -29,7 +33,33 @@ export class DocsTitleStrategy extends TitleStrategy {
     this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ property: 'og:image', content: OG_IMAGE });
+    this.meta.updateTag({ property: 'og:site_name', content: BRAND });
+
+    const path = snapshot.url.split('#')[0].split('?')[0].replace(/\/$/, '');
+    this.meta.updateTag({ property: 'og:url', content: `${SITE}${path}` });
+    this.setLink('canonical', `${SITE}${path}`);
+
+    const match = /^\/(en|pt)(\/.*)?$/.exec(path);
+    if (!match) return;
+    const rest = match[2] ?? '';
+    this.setLink('alternate', `${SITE}/en${rest}`, 'en');
+    this.setLink('alternate', `${SITE}/pt${rest}`, 'pt');
+    this.setLink('alternate', `${SITE}/en${rest}`, 'x-default');
+  }
+
+  private setLink(rel: string, href: string, hreflang?: string): void {
+    const head = this.document.head;
+    const selector = hreflang
+      ? `link[rel="${rel}"][hreflang="${hreflang}"]`
+      : `link[rel="${rel}"]:not([hreflang])`;
+    const link =
+      head.querySelector<HTMLLinkElement>(selector) ?? this.document.createElement('link');
+    link.setAttribute('rel', rel);
+    link.setAttribute('href', href);
+    if (hreflang) link.setAttribute('hreflang', hreflang);
+    if (!link.parentNode) head.appendChild(link);
   }
 
   private deepest(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
