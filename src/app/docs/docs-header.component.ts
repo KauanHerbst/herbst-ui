@@ -88,7 +88,7 @@ import { TranslatePipe } from './t.pipe';
             [hbValue]="loc.locale()"
             (hbValueChange)="loc.switchLocale($event)"
             class="hidden font-mono md:inline-flex"
-            [attr.aria-label]="'a11y.language' | t"
+            [hbAriaLabel]="'a11y.language' | t"
           >
             <hb-segmented-item value="en" label="EN"></hb-segmented-item>
             <hb-segmented-item value="pt" label="PT"></hb-segmented-item>

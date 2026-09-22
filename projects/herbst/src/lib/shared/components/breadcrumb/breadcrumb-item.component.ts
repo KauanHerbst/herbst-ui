@@ -104,6 +104,7 @@ import {
   viewProviders: [provideIcons({ phosphorCaretRight, phosphorDotsThree })],
   host: {
     '[class]': 'classes()',
+    role: 'listitem',
     '[attr.data-slot]': "'breadcrumb-item'",
     '[style.display]': "display() === 'hidden' ? 'none' : null",
   },

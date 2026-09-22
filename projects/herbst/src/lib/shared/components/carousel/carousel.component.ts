@@ -30,13 +30,15 @@ import { type HbCarouselSize } from './carousel.variants';
   encapsulation: ViewEncapsulation.None,
   host: {
     '[class]': 'hostClasses()',
-    role: 'region',
+    '[attr.role]': "hbAriaLabel() ? 'region' : 'group'",
+    '[attr.aria-label]': 'hbAriaLabel() || null',
     'aria-roledescription': 'carousel',
     '[attr.data-slot]': "'carousel'",
   },
   exportAs: 'hbCarousel',
 })
 export class HbCarouselComponent {
+  readonly hbAriaLabel = input<string>('');
   readonly hbOrientation = input<'horizontal' | 'vertical'>('horizontal');
   readonly hbAlign = input<'start' | 'center' | 'end'>('start');
   readonly hbLoop = input(false, { transform: booleanAttribute });

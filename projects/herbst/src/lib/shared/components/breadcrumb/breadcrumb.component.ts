@@ -27,7 +27,7 @@ export class HbBreadcrumbSeparatorDirective {}
   selector: 'hb-breadcrumb, [hb-breadcrumb]',
   template: `
     <nav aria-label="breadcrumb" [class]="navClasses()">
-      <ol [class]="listClasses()">
+      <ol role="list" [class]="listClasses()">
         <ng-content />
       </ol>
     </nav>

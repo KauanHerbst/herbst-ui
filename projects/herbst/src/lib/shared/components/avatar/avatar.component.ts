@@ -49,7 +49,12 @@ export class HbAvatarBadgeDirective {}
     }
 
     @if (showBadge()) {
-      <span [class]="badgeClasses()" [attr.aria-label]="hbStatus() ?? null" data-slot="avatar-badge">
+      <span
+        [class]="badgeClasses()"
+        [attr.role]="hbStatus() ? 'img' : null"
+        [attr.aria-label]="hbStatus() ?? null"
+        data-slot="avatar-badge"
+      >
         @if (hasCustomBadge()) {
           <ng-content select="[hbAvatarBadge]" />
         } @else if (hbBadgeIcon()) {

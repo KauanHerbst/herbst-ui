@@ -27,25 +27,23 @@ import type { HbAvatarShape, HbAvatarSize } from './avatar.variants';
 
     @if (overflowCount() > 0) {
       <span
-        class="inline-flex"
+        [class]="chipClasses()"
+        [style.width.px]="customSize()"
+        [style.height.px]="customSize()"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="overflowLabel()"
         [hbMenuTriggerFor]="overflowMenu"
         #overflowTrigger="hbMenuTrigger"
+        (click)="hbOverflowClick.emit(); overflowTrigger.toggle()"
       >
-        <div
-          [class]="chipClasses()"
-          [style.width.px]="customSize()"
-          [style.height.px]="customSize()"
-          role="button"
-          tabindex="0"
-          data-slot="avatar-group-overflow"
-          (click)="hbOverflowClick.emit(); overflowTrigger.toggle()"
-        >
-          @if (hbOverflowIcon()) {
-            <ng-icon [name]="hbOverflowIcon()" class="[&>svg]:size-[45%]" />
-          } @else {
-            +{{ overflowCount() }}
-          }
-        </div>
+        <span data-slot="avatar-group-overflow" aria-hidden="true">
+        @if (hbOverflowIcon()) {
+          <ng-icon [name]="hbOverflowIcon()" class="[&>svg]:size-[45%]" />
+        } @else {
+          +{{ overflowCount() }}
+        }
+        </span>
       </span>
     }
 
@@ -95,6 +93,8 @@ export class HbAvatarGroupComponent {
     if (max == null || max <= 0) return 0;
     return Math.max(0, this.total() - max);
   });
+
+  protected readonly overflowLabel = computed(() => `${this.overflowCount()} more`);
 
   private readonly namedSize = computed<HbAvatarSize>(() => {
     const size = this.hbSize();

@@ -1,6 +1,7 @@
 <div class="min-h-screen bg-background text-foreground">
 <app-docs-header menu="false" />
 
+<main class="contents">
 <div class="relative hb-group">
 <section class="hb-panel flex border-b border-border bg-background">
   <app-hb-leaves />
@@ -88,7 +89,7 @@
         <button type="button" (click)="copyCli()" aria-live="polite" class="rounded px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">{{ (copied() ? 'landing.install.copied' : 'landing.install.copy') | t }}</button>
       </div>
       <div class="px-5 py-5 font-mono text-[13px] leading-loose">
-        <div><span class="text-muted-foreground">$</span> npm i &#64;herbst/ui</div>
+        <div><span class="text-muted-foreground">$</span> npx herbst-ui&#64;latest init</div>
         <div><span class="text-muted-foreground">$</span> npx herbst-ui add button calendar command</div>
         <div class="text-success">{{ 'landing.install.mounted' | t }}</div>
         <div class="text-muted-foreground">{{ 'landing.install.catalogued' | t }}<span class="hb-blink -mb-0.5 ml-1.5 inline-block h-3.5 w-[7px] bg-primary align-[-2px]"></span></div>
@@ -396,6 +397,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer class="relative z-[1] bg-background">
   <div class="mx-auto grid max-w-[1120px] grid-cols-2 gap-8 px-6 pt-16 pb-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
