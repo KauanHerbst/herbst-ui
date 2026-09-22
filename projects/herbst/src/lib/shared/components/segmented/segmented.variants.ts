@@ -11,7 +11,7 @@ export const segmentedVariants = cva(
 );
 
 export const segmentedItemVariants = cva(
-  'inline-flex h-full cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-sm font-medium ring-offset-background outline-none transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_ng-icon]:text-[1.15em]',
+  'inline-flex h-full cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-sm font-medium ring-offset-background outline-none transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-checked:bg-background aria-checked:text-foreground aria-checked:shadow-sm not-aria-checked:hover:bg-background/50 not-aria-checked:hover:text-foreground [&_ng-icon]:text-[1.15em]',
   {
     variants: {
       size: {
@@ -21,12 +21,8 @@ export const segmentedItemVariants = cva(
         lg: 'px-4 text-sm',
         xl: 'px-5 text-base',
       },
-      active: {
-        true: 'bg-background text-foreground shadow-sm',
-        false: 'hover:bg-background/50 hover:text-foreground',
-      },
     },
-    defaultVariants: { size: 'md', active: false },
+    defaultVariants: { size: 'md' },
   },
 );
 

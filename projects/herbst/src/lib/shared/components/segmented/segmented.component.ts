@@ -45,7 +45,7 @@ export interface HbSegmentedOption<T extends string = string> {
           #optBtn
           type="button"
           role="radio"
-          [class]="itemClasses(opt)"
+          [class]="itemClasses()"
           [disabled]="opt.disabled || disabledState()"
           [attr.aria-checked]="isSelected(opt.value)"
           [attr.aria-label]="opt.label"
@@ -119,12 +119,9 @@ export class HbSegmentedComponent<T extends string = string> implements ControlV
     return this.activeValue() === value;
   }
 
-  protected itemClasses(opt: HbSegmentedOption<T>): string {
-    return cn(
-      segmentedItemVariants({ size: this.hbSize(), active: this.isSelected(opt.value) }),
-      this.hbFluid() && 'flex-1',
-    );
-  }
+  protected readonly itemClasses = computed(() =>
+    cn(segmentedItemVariants({ size: this.hbSize() }), this.hbFluid() && 'flex-1'),
+  );
 
   protected selectOption(value: T): void {
     if (this.disabledState()) return;
